@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PersonalIMDB</string>
+    <string name="start">START</string>
+    <string name="personal_imdb">Personal IMDB</string>
+</resources>

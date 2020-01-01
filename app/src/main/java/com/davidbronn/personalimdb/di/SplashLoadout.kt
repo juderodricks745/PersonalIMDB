@@ -1,4 +1,4 @@
-package com.davidbronn.personalimdb.di.splash
+package com.davidbronn.personalimdb.di
 
 import com.davidbronn.personalimdb.repository.splash.*
 import com.davidbronn.personalimdb.ui.splash.SplashViewModel

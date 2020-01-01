@@ -2,7 +2,7 @@ package com.davidbronn.personalimdb
 
 import android.app.Application
 import com.davidbronn.personalimdb.di.base
-import com.davidbronn.personalimdb.di.splash.splash
+import com.davidbronn.personalimdb.di.splash
 import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin

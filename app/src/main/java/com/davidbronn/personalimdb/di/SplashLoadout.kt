@@ -12,9 +12,9 @@ val splash = module {
     single { apiInstance<SplashApi>(get()) }
 
     // DataSources Initializations
-    factory { RemoteImpl(get()) as Remote }
-    factory { PreferenceImpl(get()) as Preference }
-    factory { SplashRepositoryImpl(get(), get()) as SplashRepository }
+    single { RemoteImpl(get()) as Remote }
+    single { PreferenceImpl(get()) as Preference }
+    single { SplashRepositoryImpl(get(), get()) as SplashRepository }
 
     // ViewModel Initializations
     viewModel { SplashViewModel(get()) }

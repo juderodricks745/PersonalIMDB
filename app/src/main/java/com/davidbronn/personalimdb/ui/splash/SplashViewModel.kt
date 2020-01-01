@@ -27,7 +27,7 @@ class SplashViewModel(private val splashRepository: SplashRepository) : ViewMode
                     _event.value = Event(SplashEvent.Proceed)
                 }
                 is Result.Error -> {
-                    _event.value = Event(SplashEvent.ShowToast(genres.exception.message!!))
+                    _event.value = Event(SplashEvent.ShowToast(genres.exception.message ?: ""))
                 }
             }
         }

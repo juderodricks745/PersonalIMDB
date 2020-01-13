@@ -47,11 +47,12 @@
             app:layout_constraintRight_toRightOf="@id/guideLine"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintWidth_percent="0.22">
+            app:layout_constraintWidth_percent="0.20">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 app:imageUrl="@{item.posterPath}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_launcher_background" />

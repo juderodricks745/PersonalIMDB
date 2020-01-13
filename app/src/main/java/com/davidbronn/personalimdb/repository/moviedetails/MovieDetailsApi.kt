@@ -18,8 +18,8 @@ interface MovieDetailsApi {
     fun fetchMovieDetailsAsync(@Path("movie_id") movieId: Int): Deferred<Response<MovieDetails>>
 
     @GET("/3/movie/{movie_id}/similar?api_key=${BuildConfig.API_KEY}")
-    fun fetchSimilarMovies(@Path("movie_id") movieId: Int) : Deferred<Response<MovieItem>>
+    fun fetchSimilarMoviesAsync(@Path("movie_id") movieId: Int) : Deferred<Response<MovieItem>>
 
     @GET("/3/movie/{movie_id}/credits?api_key=${BuildConfig.API_KEY}")
-    fun fetchMoviesCast(@Path("movie_id") movieId: Int) : Deferred<Response<MovieCast>>
+    fun fetchMoviesCastAsync(@Path("movie_id") movieId: Int) : Deferred<Response<MovieCast>>
 }

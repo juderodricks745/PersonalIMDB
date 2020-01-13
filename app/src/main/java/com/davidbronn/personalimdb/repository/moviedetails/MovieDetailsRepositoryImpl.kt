@@ -9,7 +9,6 @@ import com.davidbronn.personalimdb.utils.Result
 import com.davidbronn.personalimdb.utils.jsonify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 /**
  * Created by Jude on 12/January/2020
@@ -32,7 +31,7 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
 
     override suspend fun fetchMoviesCast(movieId: Int): Result<List<CastItem?>>? {
         return withContext(Dispatchers.IO) {
-            val response = api.fetchMoviesCast(movieId).await()
+            val response = api.fetchMoviesCastAsync(movieId).await()
             if (response.isSuccessful) {
                 val movieBody = response.body()
                 movieBody?.let {
@@ -47,7 +46,7 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
 
     override suspend fun fetchSimilarMovies(movieId: Int): Result<List<ResultsItem?>?>? {
         return withContext(Dispatchers.IO) {
-            val response = api.fetchSimilarMovies(movieId).await()
+            val response = api.fetchSimilarMoviesAsync(movieId).await()
             if (response.isSuccessful) {
                 val movieBody = response.body()
                 movieBody?.let {

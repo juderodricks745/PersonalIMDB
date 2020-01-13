@@ -6,10 +6,6 @@
     <data>
 
         <import type="android.view.View" />
-
-        <variable
-            name="vm"
-            type="com.davidbronn.personalimdb.ui.splash.SplashViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

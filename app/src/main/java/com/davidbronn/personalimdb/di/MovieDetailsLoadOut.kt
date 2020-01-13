@@ -31,5 +31,5 @@ val movieDetails = module {
     factory { MovieDetailsRepositoryImpl(get(), get()) as MovieDetailsRepository}
 
     // Movie Details ViewModel
-    factory { MovieDetailsViewModel(get()) } // Dynamic parameter injection using getProperty
+    factory { MovieDetailsViewModel(get()) }
 }

@@ -16,6 +16,9 @@ class SearchMoviesViewModel(private val repository: SearchMoviesRepository) : Vi
 
     val movieResults = MutableLiveData<List<ResultsItem?>>()
 
+    /**
+     * Fetch movies by the search text
+     */
     fun fetchMovies(searchText: String) {
         viewModelScope.launch {
             when (val result = repository.fetchMovies(searchText, "true")) {

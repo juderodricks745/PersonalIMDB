@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.MoviesListFragmentBinding
@@ -30,9 +29,6 @@ class MoviesListFragment : Fragment(), IRecyclerItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.movies_list_fragment, container, false)
-        // getKoin().setProperty(KoinProperty.MOVIE_TYPE, arguments?.getString(MOVIE_TYPE) ?: "")
-        // binding.vm = getViewModel()
-
         viewModel = getViewModel { MoviesListViewModel(api, arguments?.getString(MOVIE_TYPE)!!) }
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -41,8 +37,8 @@ class MoviesListFragment : Fragment(), IRecyclerItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapters()
-        observers()
+        setObservers()
+        setMoviesAdapter()
     }
 
     override fun onItemClicked(view: View?, item: Any) {
@@ -50,13 +46,13 @@ class MoviesListFragment : Fragment(), IRecyclerItemClickListener {
         MovieDetailsActivity.startMovieDetailsActivity(activity!!, movieItem.id!!)
     }
 
-    private fun observers() {
+    private fun setObservers() {
         viewModel?.getMovies()?.observe(viewLifecycleOwner, Observer { movieResults ->
             adapter?.submitList(movieResults)
         })
     }
 
-    private fun adapters() {
+    private fun setMoviesAdapter() {
         adapter = MoviesAdapter()
         adapter?.setItemClickListener(this)
         binding.rvMovies.adapter = adapter

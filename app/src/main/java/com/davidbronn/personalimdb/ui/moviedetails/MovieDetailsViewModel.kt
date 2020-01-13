@@ -30,6 +30,9 @@ class MovieDetailsViewModel(
     val moviesListLiveData = MutableLiveData<List<MovieCastItem>>()
     val creditListLiveData = MutableLiveData<List<MovieCastItem>>()
 
+    /**
+     * Fetches the movie details
+     */
     fun fetchMovieDetails(movieId: Int) {
         this.movieId = movieId
         viewModelScope.launch(Dispatchers.Main) {
@@ -47,6 +50,9 @@ class MovieDetailsViewModel(
         }
     }
 
+    /**
+     * Fetches the movies similar to the currently shown movie
+     */
     fun fetchSimilarMovies(movieId: Int) {
         viewModelScope.launch(Dispatchers.Main) {
             when(val result = repository.fetchSimilarMovies(movieId)) {
@@ -61,6 +67,9 @@ class MovieDetailsViewModel(
         }
     }
 
+    /**
+     * Fetches the cast of the movies
+     */
     fun fetchCastByMovies(movieId: Int) {
         viewModelScope.launch(Dispatchers.Main) {
             when(val result = repository.fetchMoviesCast(movieId)) {
@@ -75,6 +84,9 @@ class MovieDetailsViewModel(
         }
     }
 
+    /**
+     * Sets whether the movie is liked/not liked
+     */
     fun setLikedMovie() {
         if (repository.checkIfLikedMovie(movieId) != null) {
             repository.deleteMovie(movieId, false)

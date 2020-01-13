@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivityLandingBinding
-import com.davidbronn.personalimdb.ui.movieslist.MoviesListFragment
+import com.davidbronn.personalimdb.ui.search.SearchMoviesActivity
 
 class LandingActivity : AppCompatActivity() {
 
@@ -18,7 +18,14 @@ class LandingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_landing)
 
+        setEvents()
         setMoviesAdapter()
+    }
+
+    private fun setEvents() {
+        binding.fbSearch.setOnClickListener {
+            SearchMoviesActivity.startMoviesSearchActivity(this)
+        }
     }
 
     private fun setMoviesAdapter() {

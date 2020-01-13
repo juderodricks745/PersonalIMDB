@@ -29,11 +29,11 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.fetchSimilarMovies(getMovieId())
         viewModel.fetchCastByMovies(getMovieId())
 
-        adapters()
-        observers()
+        setObservers()
+        setMovieCastAdapter()
     }
 
-    private fun adapters() {
+    private fun setMovieCastAdapter() {
         castAdapter = MovieCastItemAdapter()
         binding.rvCast.adapter = castAdapter
         binding.rvCast.layoutManager =
@@ -45,7 +45,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    private fun observers() {
+    private fun setObservers() {
         viewModel.moviesListLiveData.observe(this, Observer { items ->
             moviesAdapter?.setItems(items)
         })

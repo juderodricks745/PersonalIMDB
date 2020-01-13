@@ -26,18 +26,18 @@ open class Event<out T>(private val content: T) {
      * Returns the content, even if it's already been handled.
      */
     fun peekContent(): T = content
+}
 
-    /**
-     * An [Observer] for [Event]'s, simplifying the pattern of checking if the [Event]'s content has
-     * already been handled.
-     * [onEventUnhandledContent] is *only* called if the [Event]'s content has not been handled.
-     */
-    class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Observer<Event<T>> {
-        override fun onChanged(t: Event<T>?) {
-            t?.getContentIfNotHandled()?.let {
-                onEventUnhandledContent(it)
-            }
+/**
+ * An [Observer] for [Event]'s, simplifying the pattern of checking if the [Event]'s content has
+ * already been handled.
+ * [onEventUnhandledContent] is *only* called if the [Event]'s content has not been handled.
+ */
+class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Observer<Event<T>> {
+    override fun onChanged(t: Event<T>?) {
+        t?.getContentIfNotHandled()?.let {
+            onEventUnhandledContent(it)
         }
-
     }
+
 }

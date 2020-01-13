@@ -2,6 +2,8 @@ package com.davidbronn.personalimdb
 
 import android.app.Application
 import com.davidbronn.personalimdb.di.base
+import com.davidbronn.personalimdb.di.movieDetails
+import com.davidbronn.personalimdb.di.movieList
 import com.davidbronn.personalimdb.di.splash
 import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
@@ -24,7 +26,9 @@ class AppController : Application() {
             modules(
                 listOf(
                     base,
-                    splash
+                    splash,
+                    movieList,
+                    movieDetails
                 )
             )
         }

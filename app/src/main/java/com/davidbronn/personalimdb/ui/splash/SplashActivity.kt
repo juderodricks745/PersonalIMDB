@@ -8,7 +8,8 @@ import androidx.transition.Fade
 import androidx.transition.TransitionManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivitySplashBinding
-import com.davidbronn.personalimdb.utils.Event
+import com.davidbronn.personalimdb.ui.landing.LandingActivity
+import com.davidbronn.personalimdb.utils.EventObserver
 import com.davidbronn.personalimdb.utils.withSnack
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,16 +24,23 @@ class SplashActivity : AppCompatActivity() {
         binding.vm = viewModel
         binding.lifecycleOwner = this
 
+        events()
         observers()
     }
 
     private fun observers() {
-        viewModel.event.observe(this, Event.EventObserver { event ->
+        viewModel.event.observe(this, EventObserver { event ->
             when(event) {
                 SplashViewModel.SplashEvent.Proceed -> showNavigation()
                 is SplashViewModel.SplashEvent.ShowToast -> binding.clRoot.withSnack(event.message)
             }
         })
+    }
+
+    private fun events() {
+        binding.fabStart.setOnClickListener {
+            LandingActivity.startLandingActivity(this)
+        }
     }
 
     private fun showNavigation() {

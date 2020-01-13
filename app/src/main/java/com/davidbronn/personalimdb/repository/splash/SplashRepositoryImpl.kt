@@ -1,7 +1,7 @@
 package com.davidbronn.personalimdb.repository.splash
 
 import com.davidbronn.personalimdb.data.models.GenreModel
-import com.davidbronn.personalimdb.data.models.StatusModel
+import com.davidbronn.personalimdb.models.network.StatusModel
 import com.davidbronn.personalimdb.utils.Result
 import com.davidbronn.personalimdb.utils.jsonify
 import kotlinx.coroutines.Dispatchers

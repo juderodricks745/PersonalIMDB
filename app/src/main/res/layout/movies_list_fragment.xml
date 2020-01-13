@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.movieslist.MoviesListFragment">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.davidbronn.personalimdb.ui.movieslist.MoviesListViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/clRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMovies"
+            tools:listitem="@layout/layout_movie_item"
+            tools:itemCount="2"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</layout>

@@ -1,4 +1,4 @@
-package com.davidbronn.personalimdb.data.models
+package com.davidbronn.personalimdb.models.network
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

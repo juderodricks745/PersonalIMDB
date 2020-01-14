@@ -9,7 +9,8 @@ import com.davidbronn.personalimdb.ui.movieslist.MoviesListFragment
  * Created by Jude on 13/January/2020
  */
 class LandingAdapter(private val titles: List<String>, manager: FragmentManager) :
-    FragmentStatePagerAdapter(manager) {
+    FragmentStatePagerAdapter(manager,
+        BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
         return if (position == 0) {

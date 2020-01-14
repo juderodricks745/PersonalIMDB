@@ -3,4 +3,6 @@
     <string name="start">START</string>
     <string name="personal_imdb">Personal IMDB</string>
     <string name="lbl_synopsis">Synopsis</string>
+    <string name="cast">Cast</string>
+    <string name="similar_movies">Similar Movies</string>
 </resources>

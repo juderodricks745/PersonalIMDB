@@ -1,14 +1,11 @@
 package com.davidbronn.personalimdb.ui.movieslist
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
-import com.davidbronn.personalimdb.repository.movieslist.MoviesApi
-import com.davidbronn.personalimdb.utils.Event
 import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.davidbronn.personalimdb.models.network.ResultsItem
-import timber.log.Timber
+import com.davidbronn.personalimdb.repository.movieslist.MoviesApi
 
 class MoviesListViewModel(moviesApi: MoviesApi, type: String) : ViewModel() {
 

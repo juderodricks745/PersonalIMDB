@@ -30,21 +30,24 @@ class MovieDetailsViewModel(
     val moviesListLiveData = MutableLiveData<List<MovieCastItem>>()
     val creditListLiveData = MutableLiveData<List<MovieCastItem>>()
 
+    val progress = MutableLiveData<Boolean>()
+
     /**
      * Fetches the movie details
      */
     fun fetchMovieDetails(movieId: Int) {
         this.movieId = movieId
         viewModelScope.launch(Dispatchers.Main) {
+            progress.value = true
+            delay(500)
             when(val result = repository.getMovieDetails(movieId)) {
                 is Result.Success -> {
                     setMovieDetails(result.data)
+                    progress.value = false
                 }
                 is Result.Error -> {
+                    progress.value = false
                     Timber.e(result.exception)
-                }
-                Result.Loading -> {
-
                 }
             }
         }
@@ -63,6 +66,9 @@ class MovieDetailsViewModel(
                     }
                     moviesListLiveData.value = movies
                 }
+                is Result.Error -> {
+                    Timber.e(result.exception)
+                }
             }
         }
     }
@@ -79,6 +85,9 @@ class MovieDetailsViewModel(
                         MovieCastItem(url = item?.profilePath, title = item?.name, isMovie = false)
                     }
                     creditListLiveData.value = credits
+                }
+                is Result.Error -> {
+                    Timber.e(result.exception)
                 }
             }
         }

@@ -29,8 +29,15 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.fetchSimilarMovies(getMovieId())
         viewModel.fetchCastByMovies(getMovieId())
 
+        setEvents()
         setObservers()
         setMovieCastAdapter()
+    }
+
+    private fun setEvents() {
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setMovieCastAdapter() {

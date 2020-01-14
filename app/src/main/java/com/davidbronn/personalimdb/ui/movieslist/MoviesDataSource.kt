@@ -19,9 +19,13 @@ class MoviesDataSource(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, ResultsItem>
     ) {
-        val response = fetchMoviesByType(type, 1)
-        if (response.isSuccessful) {
-            callback.onResult(response.body()?.results!!, null, 2)
+        try {
+            val response = fetchMoviesByType(type, 1)
+            if (response.isSuccessful) {
+                callback.onResult(response.body()?.results!!, null, 2)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
     }
 
@@ -29,9 +33,13 @@ class MoviesDataSource(
         params: LoadParams<Int>,
         callback: LoadCallback<Int, ResultsItem>
     ) {
-        val response = fetchMoviesByType(type, params.key)
-        if (response.isSuccessful) {
-            callback.onResult(response.body()?.results!!, params.key + 1)
+        try {
+            val response = fetchMoviesByType(type, params.key)
+            if (response.isSuccessful) {
+                callback.onResult(response.body()?.results!!, params.key + 1)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
     }
 

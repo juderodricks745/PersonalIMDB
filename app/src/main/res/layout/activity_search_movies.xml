@@ -5,6 +5,7 @@
     tools:context=".ui.search.SearchMoviesActivity">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="vm"
@@ -26,12 +27,12 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/drawable_rounded_rectangle"
             android:drawableEnd="@drawable/ic_search_black_24dp"
+            android:imeOptions="actionDone"
             android:maxLength="20"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:singleLine="true"
             android:textSize="14sp"
-            android:imeOptions="actionDone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +44,17 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="10dp"
+            android:visibility="@{vm.progress ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edMovies" />
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="@{vm.progress ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

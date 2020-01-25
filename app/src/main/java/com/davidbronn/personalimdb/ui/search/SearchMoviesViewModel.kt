@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepository
-import com.davidbronn.personalimdb.utils.Result
+import com.davidbronn.personalimdb.utils.misc.Result
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*

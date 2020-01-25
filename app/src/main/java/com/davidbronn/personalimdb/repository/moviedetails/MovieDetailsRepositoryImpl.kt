@@ -5,8 +5,8 @@ import com.davidbronn.personalimdb.models.network.CastItem
 import com.davidbronn.personalimdb.models.network.MovieDetails
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.models.network.StatusModel
-import com.davidbronn.personalimdb.utils.Result
-import com.davidbronn.personalimdb.utils.jsonify
+import com.davidbronn.personalimdb.utils.helpers.jsonify
+import com.davidbronn.personalimdb.utils.misc.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivitySearchMoviesBinding
-import com.davidbronn.personalimdb.utils.withSnack
+import com.davidbronn.personalimdb.utils.helpers.withSnack
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchMoviesActivity : AppCompatActivity() {

@@ -1,9 +1,9 @@
 package com.davidbronn.personalimdb.di
 
 import com.davidbronn.personalimdb.BuildConfig
-import com.davidbronn.personalimdb.utils.interceptor
-import com.davidbronn.personalimdb.utils.okhttp
-import com.davidbronn.personalimdb.utils.retrofit
+import com.davidbronn.personalimdb.utils.helpers.interceptor
+import com.davidbronn.personalimdb.utils.helpers.okhttp
+import com.davidbronn.personalimdb.utils.helpers.retrofit
 import org.koin.dsl.module
 
 val base = module {

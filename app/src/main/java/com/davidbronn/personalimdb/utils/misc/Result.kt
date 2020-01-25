@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.davidbronn.personalimdb.utils
+package com.davidbronn.personalimdb.utils.misc
 
 /**
  * A generic class that holds a value with its loading status.

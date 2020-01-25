@@ -1,4 +1,4 @@
-package com.davidbronn.personalimdb.utils
+package com.davidbronn.personalimdb.utils.helpers
 
 import com.davidbronn.personalimdb.BuildConfig
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory

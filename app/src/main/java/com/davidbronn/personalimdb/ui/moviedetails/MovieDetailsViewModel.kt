@@ -6,8 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.davidbronn.personalimdb.models.network.MovieCastItem
 import com.davidbronn.personalimdb.models.network.MovieDetails
 import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsRepository
-import com.davidbronn.personalimdb.utils.Result
-import kotlinx.coroutines.*
+import com.davidbronn.personalimdb.utils.misc.Result
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**

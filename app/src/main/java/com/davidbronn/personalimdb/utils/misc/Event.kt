@@ -1,4 +1,4 @@
-package com.davidbronn.personalimdb.utils
+package com.davidbronn.personalimdb.utils.misc
 
 import androidx.lifecycle.Observer
 

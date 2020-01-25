@@ -6,7 +6,7 @@ import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsRepositor
 import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsRepositoryImpl
 import com.davidbronn.personalimdb.repository.moviedetails.MoviesDatabase
 import com.davidbronn.personalimdb.ui.moviedetails.MovieDetailsViewModel
-import com.davidbronn.personalimdb.utils.apiInstance
+import com.davidbronn.personalimdb.utils.helpers.apiInstance
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

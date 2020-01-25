@@ -4,7 +4,7 @@ import com.davidbronn.personalimdb.models.database.LikedMovie
 import com.davidbronn.personalimdb.models.network.CastItem
 import com.davidbronn.personalimdb.models.network.MovieDetails
 import com.davidbronn.personalimdb.models.network.ResultsItem
-import com.davidbronn.personalimdb.utils.Result
+import com.davidbronn.personalimdb.utils.misc.Result
 
 /**
  * Created by Jude on 12/January/2020

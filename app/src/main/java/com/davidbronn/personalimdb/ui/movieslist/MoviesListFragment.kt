@@ -10,27 +10,29 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.MoviesListFragmentBinding
+import com.davidbronn.personalimdb.di.KoinKeys
 import com.davidbronn.personalimdb.models.network.ResultsItem
-import com.davidbronn.personalimdb.repository.movieslist.MoviesApi
+import com.davidbronn.personalimdb.ui.interfaces.IRecyclerItemClickListener
 import com.davidbronn.personalimdb.ui.moviedetails.MovieDetailsActivity
-import com.davidbronn.personalimdb.utils.IRecyclerItemClickListener
-import com.davidbronn.personalimdb.utils.getViewModel
-import org.koin.android.ext.android.inject
+import com.davidbronn.personalimdb.utils.misc.NetworkState
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.KoinComponent
 
-class MoviesListFragment : Fragment(), IRecyclerItemClickListener {
+class MoviesListFragment : Fragment(),
+    IRecyclerItemClickListener, KoinComponent {
 
-    private val api: MoviesApi by inject()
     private var adapter: MoviesAdapter? = null
-    private var viewModel: MoviesListViewModel? = null
     private lateinit var binding: MoviesListFragmentBinding
+    private val viewModel: MoviesListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.movies_list_fragment, container, false)
-        viewModel = getViewModel { MoviesListViewModel(api, arguments?.getString(MOVIE_TYPE)!!) }
+        getKoin().setProperty(KoinKeys.MOVIE_TYPE, getMovieType())
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.vm = viewModel
         return binding.root
     }
 
@@ -47,8 +49,30 @@ class MoviesListFragment : Fragment(), IRecyclerItemClickListener {
     }
 
     private fun setObservers() {
-        viewModel?.getMovies()?.observe(viewLifecycleOwner, Observer { movieResults ->
+        viewModel.getMovies()?.observe(viewLifecycleOwner, Observer { movieResults ->
             adapter?.submitList(movieResults)
+        })
+
+        viewModel.loadingInitial()?.observe(viewLifecycleOwner, Observer { state ->
+            when (state) {
+                is NetworkState.Loading -> {
+                    viewModel.setInitialLoading(state.loading)
+                }
+                is NetworkState.NetworkError -> {
+                    viewModel.setInitialError(state.errorMessage)
+                }
+            }
+        })
+
+        viewModel.loadingAfter()?.observe(viewLifecycleOwner, Observer { state ->
+            when (state) {
+                is NetworkState.Loading -> {
+                    viewModel.setBottomLoading(state.loading)
+                }
+                is NetworkState.NetworkError -> {
+                    viewModel.setBottomError(state.errorMessage)
+                }
+            }
         })
     }
 
@@ -59,6 +83,8 @@ class MoviesListFragment : Fragment(), IRecyclerItemClickListener {
         binding.rvMovies.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
     }
+
+    private fun getMovieType() = arguments!!.getString(MOVIE_TYPE, "T")
 
     companion object {
         private const val MOVIE_TYPE = "movie_type"

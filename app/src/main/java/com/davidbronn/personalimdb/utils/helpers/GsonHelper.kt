@@ -1,4 +1,4 @@
-package com.davidbronn.personalimdb.utils
+package com.davidbronn.personalimdb.utils.helpers
 
 import com.davidbronn.personalimdb.AppController
 

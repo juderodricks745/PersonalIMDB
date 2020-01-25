@@ -4,7 +4,7 @@ import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesApi
 import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepository
 import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepositoryImpl
 import com.davidbronn.personalimdb.ui.search.SearchMoviesViewModel
-import com.davidbronn.personalimdb.utils.apiInstance
+import com.davidbronn.personalimdb.utils.helpers.apiInstance
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

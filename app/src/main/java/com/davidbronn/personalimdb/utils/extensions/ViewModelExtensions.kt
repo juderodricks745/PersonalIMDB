@@ -1,4 +1,4 @@
-package com.davidbronn.personalimdb.utils
+package com.davidbronn.personalimdb.utils.extensions
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -14,14 +14,20 @@ inline fun <reified T : ViewModel> Fragment.getViewModel(noinline creator: (() -
     return if (creator == null)
         ViewModelProviders.of(this).get(T::class.java)
     else
-        ViewModelProviders.of(this, BaseViewModelFactory(creator)).get(T::class.java)
+        ViewModelProviders.of(
+            this,
+            BaseViewModelFactory(creator)
+        ).get(T::class.java)
 }
 
 inline fun <reified T : ViewModel> FragmentActivity.getViewModel(noinline creator: (() -> T)? = null): T {
     return if (creator == null)
         ViewModelProviders.of(this).get(T::class.java)
     else
-        ViewModelProviders.of(this, BaseViewModelFactory(creator)).get(T::class.java)
+        ViewModelProviders.of(
+            this,
+            BaseViewModelFactory(creator)
+        ).get(T::class.java)
 }
 
 class BaseViewModelFactory<T>(val creator: () -> T) : ViewModelProvider.Factory {

@@ -32,6 +32,8 @@ class AppController : Application() {
     }
 
     companion object {
+
+
         var gson: Gson? = null
         fun requireGson(): Gson? {
             if (gson == null) {

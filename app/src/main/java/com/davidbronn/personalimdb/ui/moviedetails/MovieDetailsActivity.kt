@@ -62,16 +62,21 @@ class MovieDetailsActivity : AppCompatActivity() {
         })
     }
 
-    private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID) ?: 423204
+    override fun onBackPressed() {
+        super.onBackPressed()
+        supportFinishAfterTransition()
+    }
+
+    private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!
 
     companion object {
 
         const val MOVIE_ID = "movie_id"
 
-        fun startMovieDetailsActivity(context: Context, movieId: Int) {
+        fun startMovieDetailsActivity(context: Context, movieId: Int, bundle: Bundle?) {
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra(MOVIE_ID, movieId)
-            context.startActivity(intent)
+            context.startActivity(intent, bundle)
         }
     }
 }

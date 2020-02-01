@@ -14,10 +14,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/motionLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="@{vm.progress ? View.GONE : View.VISIBLE}"
@@ -61,17 +63,27 @@
                 app:tint="#FF0000"
                 tools:src="@drawable/ic_filled" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivPosterPath"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvPoster"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-                app:imageUrl="@{vm.posterPath}"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivBackdropPath"
                 app:layout_constraintHeight_percent="0.25"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivBackdropPath"
-                app:layout_constraintWidth_percent="0.3" />
+                app:layout_constraintWidth_percent="0.3">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivPosterPath"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:transitionName="poster"
+                    app:imageUrl="@{vm.posterPath}" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTagLine"
@@ -80,7 +92,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
                 android:text="@{vm.runtime}"
-                app:layout_constraintLeft_toRightOf="@id/ivPosterPath"
+                app:layout_constraintLeft_toRightOf="@id/cvPoster"
                 app:layout_constraintTop_toBottomOf="@id/ivBackdropPath"
                 tools:text="100 mins" />
 
@@ -93,7 +105,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@{vm.genres}"
-                app:layout_constraintLeft_toRightOf="@id/ivPosterPath"
+                app:layout_constraintLeft_toRightOf="@id/cvPoster"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTagLine"
                 tools:text="Action, Adventure" />
@@ -104,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="@{vm.releaseDate}"
-                app:layout_constraintLeft_toRightOf="@id/ivPosterPath"
+                app:layout_constraintLeft_toRightOf="@id/cvPoster"
                 app:layout_constraintTop_toBottomOf="@id/tvGenres"
                 tools:text="1990-12-12" />
 
@@ -116,18 +128,20 @@
                 android:text="@{vm.title}"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
+
                 app:layout_constraintBottom_toBottomOf="@+id/ivBack"
                 app:layout_constraintLeft_toRightOf="@id/ivBack"
                 app:layout_constraintTop_toTopOf="@+id/ivBack"
                 tools:text="IT: Chapter Two" />
 
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivPosterPath">
+                app:layout_constraintTop_toBottomOf="@id/cvPoster">
 
                 <LinearLayout
                     android:layout_width="match_parent"

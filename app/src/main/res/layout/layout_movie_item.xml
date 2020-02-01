@@ -50,9 +50,11 @@
             app:layout_constraintWidth_percent="0.20">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPoster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
+                android:transitionName="poster"
                 app:imageUrl="@{item.posterPath}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_launcher_background" />
@@ -79,6 +81,7 @@
                 app:layout_constraintVertical_chainStyle="spread">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.85"

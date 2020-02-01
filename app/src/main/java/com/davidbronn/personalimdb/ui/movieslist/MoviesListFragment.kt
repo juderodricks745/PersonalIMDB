@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -44,8 +47,17 @@ class MoviesListFragment : Fragment(),
     }
 
     override fun onItemClicked(view: View?, item: Any) {
+        val ivPoster = view!!.findViewById<ImageView>(R.id.ivPoster)
         val movieItem = item as ResultsItem
-        MovieDetailsActivity.startMovieDetailsActivity(activity!!, movieItem.id!!)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            activity!!,
+            ivPoster, ViewCompat.getTransitionName(ivPoster)!!
+        )
+        MovieDetailsActivity.startMovieDetailsActivity(
+            activity!!,
+            movieItem.id!!,
+            options.toBundle()
+        )
     }
 
     private fun setObservers() {

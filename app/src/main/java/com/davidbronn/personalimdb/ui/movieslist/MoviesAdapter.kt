@@ -52,7 +52,7 @@ class MoviesAdapter :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         override fun onClick(v: View?) {
-            itemClickListener?.onItemClicked(v, getItem(adapterPosition) as ResultsItem)
+            itemClickListener?.onItemClicked(binding.root, getItem(adapterPosition) as ResultsItem)
         }
 
         fun bindItem(movieItem: ResultsItem) {

@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
             android:text="@{vm.bottomErrorMessage}"
             android:textColor="@color/color_red"
             android:textSize="14sp"
@@ -44,6 +44,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btnRetry"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry"
             tools:text="No Internet Connection" />
 
         <androidx.appcompat.widget.AppCompatButton

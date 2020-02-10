@@ -4,7 +4,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import coil.api.load
 import com.davidbronn.personalimdb.R
-import com.davidbronn.personalimdb.utils.MovieUrls
+import com.davidbronn.personalimdb.utils.misc.MovieUrls
 
 /**
  * Created by Jude on 12/January/2020

@@ -63,8 +63,8 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         supportFinishAfterTransition()
+        super.onBackPressed()
     }
 
     private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!

@@ -8,7 +8,6 @@ import com.davidbronn.personalimdb.models.network.MovieDetails
 import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsRepository
 import com.davidbronn.personalimdb.utils.misc.Result
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -41,11 +40,10 @@ class MovieDetailsViewModel(
         this.movieId = movieId
         viewModelScope.launch(Dispatchers.Main) {
             progress.value = true
-            delay(500)
             when(val result = repository.getMovieDetails(movieId)) {
                 is Result.Success -> {
-                    setMovieDetails(result.data)
                     progress.value = false
+                    setMovieDetails(result.data)
                 }
                 is Result.Error -> {
                     progress.value = false

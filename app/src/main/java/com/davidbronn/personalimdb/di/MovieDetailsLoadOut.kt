@@ -16,20 +16,17 @@ import org.koin.dsl.module
 
 val movieDetails = module {
 
-    // Movies DB
     single {
         Room.databaseBuilder(androidApplication(), MoviesDatabase::class.java, "movies-db")
             .allowMainThreadQueries()
             .build()
     }
+
     single { get<MoviesDatabase>().likedMovieDao() }
 
-    // Movies Details API
     factory { apiInstance<MovieDetailsApi>(get()) }
 
-    // Movie Details Repository
     factory { MovieDetailsRepositoryImpl(get(), get()) as MovieDetailsRepository}
 
-    // Movie Details ViewModel
     factory { MovieDetailsViewModel(get()) }
 }

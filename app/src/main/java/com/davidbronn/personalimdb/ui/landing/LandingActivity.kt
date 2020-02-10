@@ -2,8 +2,8 @@ package com.davidbronn.personalimdb.ui.landing
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivityLandingBinding
@@ -11,7 +11,6 @@ import com.davidbronn.personalimdb.ui.search.SearchMoviesActivity
 
 class LandingActivity : AppCompatActivity() {
 
-    private val titles = mutableListOf("Popular Movies", "Top Rated Movies")
     private lateinit var binding: ActivityLandingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,12 +23,13 @@ class LandingActivity : AppCompatActivity() {
 
     private fun setEvents() {
         binding.fbSearch.setOnClickListener {
+            // TODO Open with circular reveal animation
             SearchMoviesActivity.startMoviesSearchActivity(this)
         }
     }
 
     private fun setMoviesAdapter() {
-        val moviesAdapter = LandingAdapter(titles, supportFragmentManager)
+        val moviesAdapter = LandingAdapter(supportFragmentManager)
         binding.vpMovies.adapter = moviesAdapter
         binding.tabLayout.setupWithViewPager(binding.vpMovies)
     }

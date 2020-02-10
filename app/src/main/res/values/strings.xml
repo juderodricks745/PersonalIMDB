@@ -1,4 +1,9 @@
 <resources>
+
+    <!-- Error -->
+    <string name="err.search.more_characters">Try Again</string>
+
+    <!-- Labels -->
     <string name="app_name">PersonalIMDB</string>
     <string name="start">START</string>
     <string name="personal_imdb">Personal IMDB</string>
@@ -7,4 +12,5 @@
     <string name="similar_movies">Similar Movies</string>
     <string name="retry">Retry</string>
     <string name="lbl_try_again">Try Again</string>
+
 </resources>

@@ -8,8 +8,9 @@ import org.koin.dsl.module
 
 val base = module {
 
-    // Retrofit Initializations
     single { interceptor() }
+
     single { okhttp(get()) }
+
     single { retrofit(BuildConfig.BASE_URL, get()) }
 }

@@ -96,15 +96,15 @@ class MoviesListFragment : Fragment(),
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
     }
 
-    private fun getMovieType() = arguments!!.getString(MOVIE_TYPE, "T")
+    private fun getMovieType() = arguments!!.getInt(MOVIE_TYPE)
 
     companion object {
         private const val MOVIE_TYPE = "movie_type"
 
-        fun newInstance(movieType: String): Fragment {
+        fun newInstance(movieType: Int): Fragment {
             return MoviesListFragment().apply {
                 arguments = Bundle().apply {
-                    putString(MOVIE_TYPE, movieType)
+                    putInt(MOVIE_TYPE, movieType)
                 }
             }
         }

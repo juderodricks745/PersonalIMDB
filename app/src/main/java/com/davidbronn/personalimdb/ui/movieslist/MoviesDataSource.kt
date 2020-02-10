@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.davidbronn.personalimdb.models.network.MovieItem
 import com.davidbronn.personalimdb.models.network.ResultsItem
-import com.davidbronn.personalimdb.repository.movieslist.MoviesApi
+import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi
 import com.davidbronn.personalimdb.utils.misc.NetworkState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,8 +19,8 @@ import timber.log.Timber
  * Created by Jude on 05/January/2020
  */
 class MoviesDataSource(
-    private val type: String,
-    private val moviesApi: MoviesApi
+    private val type: Int,
+    private val moviesApi: MoviesListApi
 ) : PageKeyedDataSource<Int, ResultsItem>() {
 
     // keep a function reference for the retry event
@@ -104,8 +104,8 @@ class MoviesDataSource(
         // NOT USED
     }
 
-    private fun fetchMoviesByType(type: String, pageNumber: Int): Call<MovieItem> {
-        return if (type == "T") {
+    private fun fetchMoviesByType(type: Int, pageNumber: Int): Call<MovieItem> {
+        return if (type == 0) {
             moviesApi.fetchTopRatedMoviesAsync(pageNumber)
         } else {
             moviesApi.fetchPopularMoviesAsync(pageNumber)
@@ -139,6 +139,4 @@ class MoviesDataSource(
     fun initial(): LiveData<NetworkState> = loadFirst
 
     fun after(): LiveData<NetworkState> = loadAfter
-
-    fun loadingState() = loadFirst
 }

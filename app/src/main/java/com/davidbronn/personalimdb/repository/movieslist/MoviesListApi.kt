@@ -9,7 +9,7 @@ import retrofit2.http.Query
 /**
  * Created by Jude on 04/January/2020
  */
-interface MoviesApi {
+interface MoviesListApi {
 
     @GET("movie/popular?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
     fun fetchPopularMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>

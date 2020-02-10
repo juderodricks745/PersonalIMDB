@@ -13,7 +13,9 @@ import retrofit2.http.Query
 interface SearchMoviesApi {
 
     @GET("/3/search/movie?api_key=${BuildConfig.API_KEY}")
-    fun fetchMoviesByTextAsync(@Query("query") query: String,
-                               @Query("include_adult") include_adult: String)
+    fun fetchMoviesByTextAsync(
+        @Query("query") query: String,
+        @Query("include_adult") include_adult: String
+    )
             : Deferred<Response<MovieItem>>
 }

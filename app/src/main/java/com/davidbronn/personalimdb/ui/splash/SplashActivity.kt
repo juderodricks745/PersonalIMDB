@@ -17,9 +17,12 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         binding.lifecycleOwner = this
+    }
 
-        lifecycleScope.launchWhenCreated {
-            delay(4000)
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launchWhenResumed {
+            delay(3500)
             LandingActivity.startLandingActivity(this@SplashActivity)
         }
     }

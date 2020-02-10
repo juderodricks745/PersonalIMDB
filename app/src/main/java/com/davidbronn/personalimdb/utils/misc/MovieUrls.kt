@@ -1,4 +1,4 @@
-package com.davidbronn.personalimdb.utils
+package com.davidbronn.personalimdb.utils.misc
 
 /**
  * Created by Jude on 12/January/2020

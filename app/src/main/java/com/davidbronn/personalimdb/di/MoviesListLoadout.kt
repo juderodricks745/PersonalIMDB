@@ -1,6 +1,6 @@
 package com.davidbronn.personalimdb.di
 
-import com.davidbronn.personalimdb.repository.movieslist.MoviesApi
+import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi
 import com.davidbronn.personalimdb.ui.movieslist.MoviesDataSource
 import com.davidbronn.personalimdb.ui.movieslist.MoviesDataSourceFactory
 import com.davidbronn.personalimdb.ui.movieslist.MoviesListViewModel
@@ -13,9 +13,10 @@ import org.koin.dsl.module
  */
 val movieList = module {
 
-    single { apiInstance<MoviesApi>(get()) }
+    single { apiInstance<MoviesListApi>(get()) }
 
     factory { MoviesDataSource(getProperty(KoinKeys.MOVIE_TYPE), get()) }
+
     factory { MoviesDataSourceFactory(get()) }
 
     viewModel { MoviesListViewModel(get()) }

@@ -14,12 +14,9 @@ import org.koin.dsl.module
 
 val searchMovies = module {
 
-    // Search Movies API
     single { apiInstance<SearchMoviesApi>(get()) }
 
-    // DataSources
     single { SearchMoviesRepositoryImpl(get()) as SearchMoviesRepository }
 
-    // SearchMovies ViewModel
     viewModel { SearchMoviesViewModel(get()) }
 }

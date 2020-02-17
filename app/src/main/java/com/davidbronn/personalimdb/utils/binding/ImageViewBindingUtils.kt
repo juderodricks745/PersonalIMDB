@@ -19,8 +19,8 @@ object ImageViewBindingUtils {
     fun ImageView.setDefaultLoader(url: String?) {
         if (!url.isNullOrBlank()) {
             this.load(MovieUrls.POSTER_200 + url) {
-                placeholder(R.drawable.movie_placeholder)
                 crossfade(true)
+                placeholder(R.drawable.movie_placeholder)
             }
         }
     }

@@ -57,7 +57,7 @@
                 android:transitionName="poster"
                 app:imageUrl="@{item.posterPath}"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_launcher_background" />
+                tools:src="@drawable/movie_placeholder" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout

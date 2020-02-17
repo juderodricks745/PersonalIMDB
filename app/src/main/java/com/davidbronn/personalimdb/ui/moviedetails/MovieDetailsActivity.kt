@@ -25,18 +25,17 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-        viewModel.fetchMovieDetails(getMovieId())
-        viewModel.fetchSimilarMovies(getMovieId())
-        viewModel.fetchCastByMovies(getMovieId())
+        viewModel.fetchMovieAndRelatedDetails(getMovieId())
 
         setEvents()
         setObservers()
         setMovieCastAdapter()
+        supportPostponeEnterTransition()
     }
 
     private fun setEvents() {
         binding.ivBack.setOnClickListener {
-            finish()
+            supportFinishAfterTransition()
         }
     }
 
@@ -60,14 +59,18 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.creditListLiveData.observe(this, Observer { items ->
             castAdapter?.setItems(items)
         })
+
+        viewModel.showImageWithTransition.observe(this, Observer {
+            startPostponedEnterTransition()
+        })
     }
+
+    private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!
 
     override fun onBackPressed() {
         supportFinishAfterTransition()
         super.onBackPressed()
     }
-
-    private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!
 
     companion object {
 

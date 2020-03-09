@@ -11,9 +11,18 @@ import retrofit2.http.Query
  */
 interface MoviesListApi {
 
+    @GET("movie/latest?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
+    fun fetchLatestMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
+
+    @GET("movie/now_playing?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
+    fun fetchNowPlayingMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
+
     @GET("movie/popular?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
     fun fetchPopularMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
 
     @GET("movie/top_rated?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
     fun fetchTopRatedMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
+
+    @GET("movie/upcoming?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
+    fun fetchUpcomingMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
 }

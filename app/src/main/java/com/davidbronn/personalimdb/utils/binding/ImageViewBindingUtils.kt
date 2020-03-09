@@ -12,11 +12,11 @@ import com.davidbronn.personalimdb.utils.misc.MovieUrls
 object ImageViewBindingUtils {
 
     private const val IMAGE_URL = "imageUrl"
-    private const val IMAGE_BACKDROP = "image_backdrop"
+    private const val IMAGE_BACKDROP = "imageBackDrop"
 
     @JvmStatic
     @BindingAdapter(IMAGE_URL)
-    fun ImageView.setDefaultLoader(url: String?) {
+    fun ImageView.setImagePosterUrl(url: String?) {
         if (!url.isNullOrBlank()) {
             this.load(MovieUrls.POSTER_200 + url) {
                 crossfade(true)
@@ -27,7 +27,7 @@ object ImageViewBindingUtils {
 
     @JvmStatic
     @BindingAdapter(IMAGE_BACKDROP)
-    fun ImageView.setImageBackDrop(url: String?) {
+    fun ImageView.setImageBackDropUrl(url: String?) {
         if (!url.isNullOrBlank()) {
             this.load(MovieUrls.POSTER_500 + url) {
                 crossfade(true)

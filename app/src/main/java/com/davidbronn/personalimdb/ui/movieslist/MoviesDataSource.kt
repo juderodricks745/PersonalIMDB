@@ -6,6 +6,7 @@ import androidx.paging.PageKeyedDataSource
 import com.davidbronn.personalimdb.models.network.MovieItem
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi
+import com.davidbronn.personalimdb.ui.annotations.MovieType
 import com.davidbronn.personalimdb.utils.misc.NetworkState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -38,9 +39,8 @@ class MoviesDataSource(
             val c = fetchMoviesByType(type, 1)
             c.enqueue(object : Callback<MovieItem> {
                 override fun onFailure(call: Call<MovieItem>, t: Throwable) {
-                    loadFirst.stopLoading()
                     retry = { loadInitial(params, callback) }
-                    loadFirst.showMessage(t.localizedMessage ?: "")
+                    handleErrorStates(loadFirst, t)
                 }
 
                 override fun onResponse(
@@ -49,19 +49,17 @@ class MoviesDataSource(
                 ) {
                     if (response.isSuccessful) {
                         retry = null
-                        loadFirst.stopLoading()
+                        handleErrorStates(loadFirst, null)
                         callback.onResult(response.body()?.results!!, null, 2)
                     } else {
-                        loadFirst.stopLoading()
                         retry = { loadInitial(params, callback) }
+                        handleErrorStates(loadFirst, null)
                     }
                 }
             })
         } catch (e: Exception) {
-            Timber.e(e)
-            loadFirst.stopLoading()
             retry = { loadInitial(params, callback) }
-            loadFirst.showMessage(e.localizedMessage ?: "")
+            handleErrorStates(loadFirst, e)
         }
     }
 
@@ -74,26 +72,24 @@ class MoviesDataSource(
             val c = fetchMoviesByType(type, params.key)
             c.enqueue(object : Callback<MovieItem> {
                 override fun onFailure(call: Call<MovieItem>, t: Throwable) {
-                    loadAfter.stopLoading()
                     retry = { loadAfter(params, callback) }
-                    loadAfter.showMessage(t.localizedMessage ?: "")
+                    handleErrorStates(loadAfter, t)
                 }
 
                 override fun onResponse(call: Call<MovieItem>, response: Response<MovieItem>) {
                     if (response.isSuccessful) {
-                        loadAfter.stopLoading()
+                        retry = null
+                        handleErrorStates(loadFirst, null)
                         callback.onResult(response.body()?.results!!, params.key + 1)
                     } else {
-                        loadAfter.stopLoading()
                         retry = { loadAfter(params, callback) }
+                        handleErrorStates(loadFirst, null)
                     }
                 }
             })
         } catch (e: Exception) {
-            Timber.e(e)
-            loadAfter.stopLoading()
             retry = { loadAfter(params, callback) }
-            loadAfter.showMessage(e.localizedMessage ?: "")
+            handleErrorStates(loadAfter, e)
         }
     }
 
@@ -105,10 +101,12 @@ class MoviesDataSource(
     }
 
     private fun fetchMoviesByType(type: Int, pageNumber: Int): Call<MovieItem> {
-        return if (type == 0) {
-            moviesApi.fetchTopRatedMoviesAsync(pageNumber)
-        } else {
-            moviesApi.fetchPopularMoviesAsync(pageNumber)
+        return when (type) {
+            MovieType.MOVIES_NOW_PLAYING -> moviesApi.fetchNowPlayingMoviesAsync(pageNumber)
+            MovieType.MOVIES_POPULAR -> moviesApi.fetchPopularMoviesAsync(pageNumber)
+            MovieType.MOVIES_TOP_RATED -> moviesApi.fetchTopRatedMoviesAsync(pageNumber)
+            MovieType.MOVIES_UPCOMING -> moviesApi.fetchUpcomingMoviesAsync(pageNumber)
+            else -> moviesApi.fetchLatestMoviesAsync(pageNumber)
         }
     }
 
@@ -127,6 +125,17 @@ class MoviesDataSource(
     private fun onUI(body: () -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
             body()
+        }
+    }
+
+    private fun handleErrorStates(
+        liveData: MutableLiveData<NetworkState>,
+        error: Throwable?
+    ) {
+        liveData.stopLoading()
+        error?.let {
+            Timber.e(it)
+            liveData.showMessage(it.localizedMessage ?: "")
         }
     }
 

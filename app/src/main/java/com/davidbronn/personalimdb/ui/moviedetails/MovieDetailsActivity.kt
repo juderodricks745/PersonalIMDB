@@ -3,6 +3,10 @@ package com.davidbronn.personalimdb.ui.moviedetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.Transition
+import android.view.ViewTreeObserver
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -61,11 +65,25 @@ class MovieDetailsActivity : AppCompatActivity() {
         })
 
         viewModel.showImageWithTransition.observe(this, Observer {
-            startPostponedEnterTransition()
+            binding.sIvPoster.viewTreeObserver.addOnPreDrawListener(
+                object : ViewTreeObserver.OnPreDrawListener {
+                    override fun onPreDraw(): Boolean {
+                        binding.sIvPoster.viewTreeObserver.removeOnPreDrawListener(this)
+                        window.sharedElementEnterTransition = enterTransition()
+                        supportStartPostponedEnterTransition()
+                        return true
+                    }
+                }
+            )
         })
     }
 
     private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!
+
+    private fun enterTransition(): Transition = ChangeBounds().apply {
+        duration = 300
+        interpolator = AccelerateDecelerateInterpolator()
+    }
 
     override fun onBackPressed() {
         supportFinishAfterTransition()

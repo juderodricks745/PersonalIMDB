@@ -6,7 +6,9 @@ package com.davidbronn.personalimdb.utils.misc
 object AppConstants {
 
     val MOVIE_TITLES = mutableListOf(
-        "Latest Movies",
-        "Now Playing", "Popular Movies", "Top Rated Movies", "Upcoming Movies"
+        "Now Playing",
+        "Popular Movies",
+        "Top Rated Movies",
+        "Upcoming Movies"
     )
 }

@@ -36,29 +36,21 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/sIvPoster"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp"
+            android:scaleType="center"
+            android:transitionName="poster"
+            app:imageUrl="@{item.posterPath}"
             app:layout_constraintBottom_toBottomOf="@+id/llUseLess"
             app:layout_constraintHeight_percent="0.75"
             app:layout_constraintLeft_toLeftOf="@id/llUseLess"
             app:layout_constraintRight_toRightOf="@id/guideLine"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintWidth_percent="0.20">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivPoster"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:transitionName="poster"
-                app:imageUrl="@{item.posterPath}"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/movie_placeholder" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintWidth_percent="0.20"
+            tools:src="@drawable/movie_placeholder" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llContent"

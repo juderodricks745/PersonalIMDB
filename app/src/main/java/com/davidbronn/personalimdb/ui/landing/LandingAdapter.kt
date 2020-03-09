@@ -18,11 +18,10 @@ class LandingAdapter(manager: FragmentManager) :
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> MoviesListFragment.newInstance(MovieType.MOVIES_LATEST)
-            1 -> MoviesListFragment.newInstance(MovieType.MOVIES_NOW_PLAYING)
-            2 -> MoviesListFragment.newInstance(MovieType.MOVIES_POPULAR)
-            3 -> MoviesListFragment.newInstance(MovieType.MOVIES_TOP_RATED)
-            4 -> MoviesListFragment.newInstance(MovieType.MOVIES_UPCOMING)
+            0 -> MoviesListFragment.newInstance(MovieType.MOVIES_NOW_PLAYING)
+            1 -> MoviesListFragment.newInstance(MovieType.MOVIES_POPULAR)
+            2 -> MoviesListFragment.newInstance(MovieType.MOVIES_TOP_RATED)
+            3 -> MoviesListFragment.newInstance(MovieType.MOVIES_UPCOMING)
             else -> MoviesListFragment.newInstance(MovieType.MOVIES_UPCOMING)
         }
     }

@@ -16,7 +16,6 @@ fun interceptor(): Interceptor {
     return HttpLoggingInterceptor().apply {
         if (BuildConfig.DEBUG) {
             level = HttpLoggingInterceptor.Level.BODY
-            level = HttpLoggingInterceptor.Level.HEADERS
         } else {
             level = HttpLoggingInterceptor.Level.NONE
         }

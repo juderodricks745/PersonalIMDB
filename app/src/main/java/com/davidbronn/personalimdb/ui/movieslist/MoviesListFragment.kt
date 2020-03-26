@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,7 +14,6 @@ import com.davidbronn.personalimdb.di.KoinKeys
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.ui.interfaces.IRecyclerItemClickListener
 import com.davidbronn.personalimdb.ui.moviedetails.MovieDetailsActivity
-import com.davidbronn.personalimdb.utils.helpers.sceneAnimationWith
 import com.davidbronn.personalimdb.utils.misc.NetworkState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
@@ -46,13 +44,10 @@ class MoviesListFragment : Fragment(),
     }
 
     override fun onItemClicked(view: View?, item: Any) {
-        val ivPoster = view!!.findViewById<ImageView>(R.id.sIvPoster)
         val movieItem = item as ResultsItem
-        val options = activity?.sceneAnimationWith(ivPoster)
         MovieDetailsActivity.startMovieDetailsActivity(
             activity!!,
-            movieItem.id!!,
-            options!!.toBundle()
+            movieItem
         )
     }
 

@@ -3,16 +3,14 @@ package com.davidbronn.personalimdb.ui.moviedetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.transition.ChangeBounds
-import android.transition.Transition
-import android.view.ViewTreeObserver
-import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivityMovieDetailsBinding
+import com.davidbronn.personalimdb.models.network.ResultsItem
+import com.davidbronn.personalimdb.utils.helpers.scale
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -29,21 +27,20 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-        viewModel.fetchMovieAndRelatedDetails(getMovieId())
+        viewModel.fetchMovieAndRelatedDetails(getMovieItem())
 
         setEvents()
         setObservers()
-        setMovieCastAdapter()
-        supportPostponeEnterTransition()
+        setCastAndSimilarMoviesAdapter()
     }
 
     private fun setEvents() {
         binding.ivBack.setOnClickListener {
-            supportFinishAfterTransition()
+            finish()
         }
     }
 
-    private fun setMovieCastAdapter() {
+    private fun setCastAndSimilarMoviesAdapter() {
         castAdapter = MovieCastItemAdapter()
         binding.rvCast.adapter = castAdapter
         binding.rvCast.layoutManager =
@@ -64,40 +61,28 @@ class MovieDetailsActivity : AppCompatActivity() {
             castAdapter?.setItems(items)
         })
 
-        viewModel.showImageWithTransition.observe(this, Observer {
-            binding.sIvPoster.viewTreeObserver.addOnPreDrawListener(
-                object : ViewTreeObserver.OnPreDrawListener {
-                    override fun onPreDraw(): Boolean {
-                        binding.sIvPoster.viewTreeObserver.removeOnPreDrawListener(this)
-                        window.sharedElementEnterTransition = enterTransition()
-                        supportStartPostponedEnterTransition()
-                        return true
-                    }
-                }
-            )
+        viewModel.showCastsIfAvailable.observe(this, Observer {
+            if (it) {
+                binding.cvCast.scale()
+            }
+        })
+
+        viewModel.showMoviesIfAvailable.observe(this, Observer {
+            if (it) {
+                binding.cvSimilarMovies.scale()
+            }
         })
     }
 
-    private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!
-
-    private fun enterTransition(): Transition = ChangeBounds().apply {
-        duration = 300
-        interpolator = AccelerateDecelerateInterpolator()
-    }
-
-    override fun onBackPressed() {
-        supportFinishAfterTransition()
-        super.onBackPressed()
-    }
+    private fun getMovieItem(): ResultsItem = intent.extras?.getParcelable(MOVIE_ITEM)!!
 
     companion object {
+        const val MOVIE_ITEM = "movie_item"
 
-        const val MOVIE_ID = "movie_id"
-
-        fun startMovieDetailsActivity(context: Context, movieId: Int, bundle: Bundle?) {
+        fun startMovieDetailsActivity(context: Context, resultItem: ResultsItem) {
             val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra(MOVIE_ID, movieId)
-            context.startActivity(intent, bundle)
+            intent.putExtra(MOVIE_ITEM, resultItem)
+            context.startActivity(intent)
         }
     }
 }

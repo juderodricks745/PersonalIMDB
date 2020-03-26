@@ -21,7 +21,6 @@ class LandingAdapter(manager: FragmentManager) :
             0 -> MoviesListFragment.newInstance(MovieType.MOVIES_NOW_PLAYING)
             1 -> MoviesListFragment.newInstance(MovieType.MOVIES_POPULAR)
             2 -> MoviesListFragment.newInstance(MovieType.MOVIES_TOP_RATED)
-            3 -> MoviesListFragment.newInstance(MovieType.MOVIES_UPCOMING)
             else -> MoviesListFragment.newInstance(MovieType.MOVIES_UPCOMING)
         }
     }

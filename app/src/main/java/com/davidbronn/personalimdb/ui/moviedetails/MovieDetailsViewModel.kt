@@ -33,8 +33,9 @@ class MovieDetailsViewModel(
     val progress = MutableLiveData<Boolean>()
     val moviesListLiveData = MutableLiveData<List<MovieCastItem>>()
     val creditListLiveData = MutableLiveData<List<MovieCastItem>>()
-    val showImageWithTransition = MutableLiveData<Boolean>().apply { value = false }
 
+    val showCastsIfAvailable = MutableLiveData<Boolean>().apply { value = false }
+    val showMoviesIfAvailable = MutableLiveData<Boolean>().apply { value = false }
 
     /**
      * Sets whether the movie is liked/not liked
@@ -52,31 +53,36 @@ class MovieDetailsViewModel(
      * Fetches Movie Details for the respective Movie ID, also fetches the similar
      * kind of movies & the cast associated with the movie
      */
-    fun fetchMovieAndRelatedDetails(movieId: Int) {
+    fun fetchMovieAndRelatedDetails(movieItem: ResultsItem) {
+        movieId = movieItem.id!!
+        handleMovieDetailsFromList(movieItem)
         viewModelScope.launch {
-            progress.value = true
+            //progress.value = true
             val movieDetails = async { repository.getMovieDetails(movieId) }.await()
             val similarMovies = async { repository.fetchSimilarMovies(movieId) }.await()
             val movieCast = async { repository.fetchMoviesCast(movieId) }.await()
-            progress.value = false
+            //progress.value = false
             movieDetails?.let { handleMovieDetail(it) }
             similarMovies?.let { handleSimilarMovies(it) }
             movieCast?.let { handleMoviesCast(it) }
         }
     }
 
+    private fun handleMovieDetailsFromList(movieItem: ResultsItem) {
+        title.value = movieItem.title
+        synopsis.value = movieItem.overview
+        releaseDate.value = movieItem.releaseDate
+        backDropPath.value = movieItem.backdropPath
+        isMovieLiked.value = repository.checkIfLikedMovie(movieId) != null
+        posterPath.value = movieItem.posterPath
+    }
+
     private fun handleMovieDetail(response: Result<MovieDetails>) {
         when (response) {
             is Result.Success -> {
-                title.value = response.data.title
                 runtime.value = response.data.movieRuntime()
-                synopsis.value = response.data.overview
                 releaseDate.value = response.data.releaseDate
-                backDropPath.value = response.data.backdropPath
-                isMovieLiked.value = repository.checkIfLikedMovie(movieId) != null
                 genres.value = response.data.genres?.map { it?.name }?.joinToString(", ")
-                posterPath.value = response.data.posterPath
-                showImageWithTransition.value = true
             }
             is Result.Error -> {
                 Timber.e(response.exception)
@@ -88,17 +94,20 @@ class MovieDetailsViewModel(
         when (response) {
             is Result.Success -> {
                 response.data?.let {
-                    val movieItems =
-                        if (it.size > 10) it.take(10) else it
-                    val movies = movieItems.map { item ->
-                        MovieCastItem(
-                            url = item?.posterPath,
-                            title = item?.title,
-                            isMovie = true,
-                            rating = item?.revisedVoteCount()!!
-                        )
+                    if (!it.isNullOrEmpty()) {
+                        showMoviesIfAvailable.value = true
+                        val movieItems =
+                            if (it.size > 10) it.take(10) else it
+                        val movies = movieItems.map { item ->
+                            MovieCastItem(
+                                url = item?.posterPath,
+                                title = item?.title,
+                                isMovie = true,
+                                rating = item?.revisedVoteCount()!!
+                            )
+                        }
+                        moviesListLiveData.value = movies
                     }
-                    moviesListLiveData.value = movies
                 }
             }
             is Result.Error -> {
@@ -111,12 +120,19 @@ class MovieDetailsViewModel(
         when (response) {
             is Result.Success -> {
                 response.data?.let {
-                    val creditItems =
-                        if (it.size > 10) it.take(10) else it
-                    val credits = creditItems.map { item ->
-                        MovieCastItem(url = item?.profilePath, title = item?.name, isMovie = false)
+                    if (!it.isNullOrEmpty()) {
+                        showCastsIfAvailable.value = true
+                        val creditItems =
+                            if (it.size > 10) it.take(10) else it
+                        val credits = creditItems.map { item ->
+                            MovieCastItem(
+                                url = item?.profilePath,
+                                title = item?.name,
+                                isMovie = false
+                            )
+                        }
+                        creditListLiveData.value = credits
                     }
-                    creditListLiveData.value = credits
                 }
             }
             is Result.Error -> {

@@ -80,9 +80,10 @@ dependencies
             implementation 'com.airbnb.android:lottie:3.0.7'
             // Paging Dependencies
             implementation 'android.arch.paging:runtime:1.0.1'
-            // Coil
-            implementation("io.coil-kt:coil:0.9.1")
+            // Glide
+            implementation 'com.github.bumptech.glide:glide:4.11.0'
+            kapt 'com.github.bumptech.glide:compiler:4.11.0'
             // Room Dependencies
-            implementation "androidx.room:room-runtime:2.2.4"
-            kapt "androidx.room:room-compiler:2.2.4"
+            implementation "androidx.room:room-runtime:2.2.5"
+            kapt "androidx.room:room-compiler:2.2.5"
         }

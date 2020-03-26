@@ -63,14 +63,14 @@
                 app:tint="#FF0000"
                 tools:src="@drawable/ic_filled" />
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/sIvPoster"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
+                android:transitionName="poster"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp"
-                android:transitionName="poster"
                 app:imageUrl="@{vm.posterPath}"
                 app:layout_constraintBottom_toBottomOf="@+id/ivBackdropPath"
                 app:layout_constraintHeight_percent="0.25"
@@ -79,39 +79,40 @@
                 app:layout_constraintWidth_percent="0.3" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTagLine"
+                android:id="@+id/tvReleaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
-                android:text="@{vm.runtime}"
+                android:text="@{vm.releaseDate}"
                 app:layout_constraintLeft_toRightOf="@id/sIvPoster"
                 app:layout_constraintTop_toBottomOf="@id/ivBackdropPath"
+                tools:text="1990-12-12" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTagLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@{vm.runtime}"
+                app:layout_constraintLeft_toLeftOf="@id/tvReleaseDate"
+                app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
                 tools:text="100 mins" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvGenres"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@{vm.genres}"
-                app:layout_constraintLeft_toRightOf="@id/sIvPoster"
+                app:layout_constraintLeft_toLeftOf="@id/tvReleaseDate"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTagLine"
                 tools:text="Action, Adventure" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvReleaseDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@{vm.releaseDate}"
-                app:layout_constraintLeft_toRightOf="@id/sIvPoster"
-                app:layout_constraintTop_toBottomOf="@id/tvGenres"
-                tools:text="1990-12-12" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTitle"
@@ -182,7 +183,8 @@
                         android:id="@+id/cvCast"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp">
+                        android:layout_margin="5dp"
+                        android:alpha="0">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -217,7 +219,8 @@
                         android:id="@+id/cvSimilarMovies"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp">
+                        android:layout_margin="5dp"
+                        android:alpha="0">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"

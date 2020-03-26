@@ -20,6 +20,7 @@
             app:tabGravity="center"
             app:tabMode="scrollable"
             app:tabIndicator="@drawable/tab_dot_selector"
+            app:tabIndicatorColor="#BD45D5"
             app:tabIndicatorHeight="10dp" />
 
         <androidx.viewpager.widget.ViewPager

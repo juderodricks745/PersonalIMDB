@@ -79,11 +79,11 @@ class MoviesDataSource(
                 override fun onResponse(call: Call<MovieItem>, response: Response<MovieItem>) {
                     if (response.isSuccessful) {
                         retry = null
-                        handleErrorStates(loadFirst, null)
+                        handleErrorStates(loadAfter, null)
                         callback.onResult(response.body()?.results!!, params.key + 1)
                     } else {
                         retry = { loadAfter(params, callback) }
-                        handleErrorStates(loadFirst, null)
+                        handleErrorStates(loadAfter, null)
                     }
                 }
             })

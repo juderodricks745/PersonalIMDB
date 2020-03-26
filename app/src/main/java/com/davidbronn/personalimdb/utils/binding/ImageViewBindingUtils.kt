@@ -2,7 +2,8 @@ package com.davidbronn.personalimdb.utils.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import coil.api.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.utils.misc.MovieUrls
 
@@ -17,21 +18,19 @@ object ImageViewBindingUtils {
     @JvmStatic
     @BindingAdapter(IMAGE_URL)
     fun ImageView.setImagePosterUrl(url: String?) {
-        if (!url.isNullOrBlank()) {
-            this.load(MovieUrls.POSTER_200 + url) {
-                crossfade(true)
-                placeholder(R.drawable.movie_placeholder)
-            }
-        }
+        Glide.with(this)
+            .load(MovieUrls.POSTER_200 + url)
+            .placeholder(R.drawable.img_movie_placeholder)
+            .error(R.drawable.img_movie_placeholder)
+            .into(this)
     }
 
     @JvmStatic
     @BindingAdapter(IMAGE_BACKDROP)
     fun ImageView.setImageBackDropUrl(url: String?) {
-        if (!url.isNullOrBlank()) {
-            this.load(MovieUrls.POSTER_500 + url) {
-                crossfade(true)
-            }
-        }
+        Glide.with(this)
+            .load(MovieUrls.POSTER_500 + url)
+            .transition(DrawableTransitionOptions.withCrossFade(500))
+            .into(this)
     }
 }

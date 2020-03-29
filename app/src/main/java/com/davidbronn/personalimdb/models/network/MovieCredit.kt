@@ -2,7 +2,7 @@ package com.davidbronn.personalimdb.models.network
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieCast(
+data class MovieCredit(
 
 	@field:SerializedName("cast")
 	val cast: List<CastItem?>? = null,

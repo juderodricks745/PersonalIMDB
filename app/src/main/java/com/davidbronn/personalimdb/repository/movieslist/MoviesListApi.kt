@@ -1,7 +1,7 @@
 package com.davidbronn.personalimdb.repository.movieslist
 
-import com.davidbronn.personalimdb.BuildConfig
 import com.davidbronn.personalimdb.models.network.MovieItem
+import com.davidbronn.personalimdb.utils.misc.MovieConstants
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,18 +11,23 @@ import retrofit2.http.Query
  */
 interface MoviesListApi {
 
-    @GET("movie/latest?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
-    fun fetchLatestMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
+    @GET(MovieConstants.MovieList.MOVIE_LATEST)
+    fun fetchLatestMoviesAsync(@Query(MovieConstants.MovieList.KEY_MOVIE_PAGE) pageNumber: Int):
+            Call<MovieItem>
 
-    @GET("movie/now_playing?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
-    fun fetchNowPlayingMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
+    @GET(MovieConstants.MovieList.MOVIE_NOW_PLAYING)
+    fun fetchNowPlayingMoviesAsync(@Query(MovieConstants.MovieList.KEY_MOVIE_PAGE) pageNumber: Int):
+            Call<MovieItem>
 
-    @GET("movie/popular?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
-    fun fetchPopularMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
+    @GET(MovieConstants.MovieList.MOVIE_POPULAR)
+    fun fetchPopularMoviesAsync(@Query(MovieConstants.MovieList.KEY_MOVIE_PAGE) pageNumber: Int):
+            Call<MovieItem>
 
-    @GET("movie/top_rated?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
-    fun fetchTopRatedMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
+    @GET(MovieConstants.MovieList.MOVIE_TOP_RATED)
+    fun fetchTopRatedMoviesAsync(@Query(MovieConstants.MovieList.KEY_MOVIE_PAGE) pageNumber: Int):
+            Call<MovieItem>
 
-    @GET("movie/upcoming?api_key=${BuildConfig.API_KEY}&sort_by=popularity.desc")
-    fun fetchUpcomingMoviesAsync(@Query("page") pageNumber: Int): Call<MovieItem>
+    @GET(MovieConstants.MovieList.MOVIE_UPCOMING)
+    fun fetchUpcomingMoviesAsync(@Query(MovieConstants.MovieList.KEY_MOVIE_PAGE) pageNumber: Int):
+            Call<MovieItem>
 }

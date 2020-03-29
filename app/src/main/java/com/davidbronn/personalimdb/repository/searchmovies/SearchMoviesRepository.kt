@@ -8,7 +8,6 @@ import com.davidbronn.personalimdb.utils.misc.Result
  */
 interface SearchMoviesRepository {
 
-    suspend fun fetchMovies(searchText: String,
-                            includeAdult: String)
+    suspend fun fetchMovies(searchText: String)
             : Result<List<ResultsItem?>?>?
 }

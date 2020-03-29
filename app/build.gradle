@@ -13,9 +13,14 @@ android
                         targetSdkVersion 29
                         versionCode 1
                         versionName "1.0"
+
+                        Properties properties = new Properties()
+                        properties.load(project.rootProject.file('movie.properties').newDataInputStream())
+                        def apiKey = properties.getProperty("apiKey")
+
                         buildConfigField "String", "PREF_NAME", "\"Movies_App\""
                         buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
-                        buildConfigField "String", "API_KEY", "\"2d6be210cc8d928e0c2057b57b6c9f59\""
+                        buildConfigField("String", "MOVIE_API_KEY", "\"$apiKey\"")
                     }
             buildTypes
                     {

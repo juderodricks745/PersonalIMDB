@@ -29,7 +29,7 @@ class SearchMoviesViewModel(private val repository: SearchMoviesRepository) : Vi
         progress.value = true
         viewModelScope.launch {
             delay(1000)
-            when (val result = repository.fetchMovies(searchText, "true")) {
+            when (val result = repository.fetchMovies(searchText)) {
                 is Result.Success -> {
                     progress.value = false
                     _event.value =

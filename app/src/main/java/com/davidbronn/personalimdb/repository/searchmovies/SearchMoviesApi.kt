@@ -1,7 +1,7 @@
 package com.davidbronn.personalimdb.repository.searchmovies
 
-import com.davidbronn.personalimdb.BuildConfig
 import com.davidbronn.personalimdb.models.network.MovieItem
+import com.davidbronn.personalimdb.utils.misc.MovieConstants
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,10 +12,9 @@ import retrofit2.http.Query
  */
 interface SearchMoviesApi {
 
-    @GET("/3/search/movie?api_key=${BuildConfig.API_KEY}")
+    @GET(MovieConstants.MovieSearch.MOVIE_SEARCH)
     fun fetchMoviesByTextAsync(
-        @Query("query") query: String,
-        @Query("include_adult") include_adult: String
+        @Query(MovieConstants.MovieSearch.KEY_MOVIE_QUERY) query: String
     )
             : Deferred<Response<MovieItem>>
 }

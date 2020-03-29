@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivityMovieDetailsBinding
+import com.davidbronn.personalimdb.models.network.ResultsItem
+import com.davidbronn.personalimdb.utils.helpers.scale
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -25,13 +27,11 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-        viewModel.fetchMovieDetails(getMovieId())
-        viewModel.fetchSimilarMovies(getMovieId())
-        viewModel.fetchCastByMovies(getMovieId())
+        viewModel.fetchMovieAndRelatedDetails(getMovieItem())
 
         setEvents()
         setObservers()
-        setMovieCastAdapter()
+        setCastAndSimilarMoviesAdapter()
     }
 
     private fun setEvents() {
@@ -40,7 +40,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setMovieCastAdapter() {
+    private fun setCastAndSimilarMoviesAdapter() {
         castAdapter = MovieCastItemAdapter()
         binding.rvCast.adapter = castAdapter
         binding.rvCast.layoutManager =
@@ -60,23 +60,29 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.creditListLiveData.observe(this, Observer { items ->
             castAdapter?.setItems(items)
         })
+
+        viewModel.showCastsIfAvailable.observe(this, Observer {
+            if (it) {
+                binding.cvCast.scale()
+            }
+        })
+
+        viewModel.showMoviesIfAvailable.observe(this, Observer {
+            if (it) {
+                binding.cvSimilarMovies.scale()
+            }
+        })
     }
 
-    override fun onBackPressed() {
-        supportFinishAfterTransition()
-        super.onBackPressed()
-    }
-
-    private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!
+    private fun getMovieItem(): ResultsItem = intent.extras?.getParcelable(MOVIE_ITEM)!!
 
     companion object {
+        const val MOVIE_ITEM = "movie_item"
 
-        const val MOVIE_ID = "movie_id"
-
-        fun startMovieDetailsActivity(context: Context, movieId: Int, bundle: Bundle?) {
+        fun startMovieDetailsActivity(context: Context, resultItem: ResultsItem) {
             val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra(MOVIE_ID, movieId)
-            context.startActivity(intent, bundle)
+            intent.putExtra(MOVIE_ITEM, resultItem)
+            context.startActivity(intent)
         }
     }
 }

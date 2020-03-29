@@ -31,7 +31,7 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
 
     override suspend fun fetchMoviesCast(movieId: Int): Result<List<CastItem?>>? {
         return withContext(Dispatchers.IO) {
-            val response = api.fetchMoviesCastAsync(movieId).await()
+            val response = api.fetchMoviesCreditAsync(movieId).await()
             if (response.isSuccessful) {
                 val movieBody = response.body()
                 movieBody?.let {

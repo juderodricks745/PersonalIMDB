@@ -13,11 +13,10 @@ import kotlinx.coroutines.withContext
 class SearchMoviesRepositoryImpl(private val api: SearchMoviesApi) : SearchMoviesRepository {
 
     override suspend fun fetchMovies(
-        searchText: String,
-        includeAdult: String
+        searchText: String
     ): Result<List<ResultsItem?>?>? {
         return withContext(Dispatchers.IO) {
-            val response = api.fetchMoviesByTextAsync(searchText, includeAdult).await()
+            val response = api.fetchMoviesByTextAsync(searchText).await()
             if (response.isSuccessful) {
                 val movieBody = response.body()
                 movieBody?.let {

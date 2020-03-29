@@ -1,9 +1,9 @@
 package com.davidbronn.personalimdb.repository.moviedetails
 
-import com.davidbronn.personalimdb.BuildConfig
-import com.davidbronn.personalimdb.models.network.MovieCast
+import com.davidbronn.personalimdb.models.network.MovieCredit
 import com.davidbronn.personalimdb.models.network.MovieDetails
 import com.davidbronn.personalimdb.models.network.MovieItem
+import com.davidbronn.personalimdb.utils.misc.MovieConstants
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
@@ -14,12 +14,12 @@ import retrofit2.http.Path
  */
 interface MovieDetailsApi {
 
-    @GET("/3/movie/{movie_id}?api_key=${BuildConfig.API_KEY}")
-    fun fetchMovieDetailsAsync(@Path("movie_id") movieId: Int): Deferred<Response<MovieDetails>>
+    @GET(MovieConstants.MovieDetails.MOVIE_DETAILS)
+    fun fetchMovieDetailsAsync(@Path(MovieConstants.MovieDetails.KEY_MOVIE_ID) movieId: Int): Deferred<Response<MovieDetails>>
 
-    @GET("/3/movie/{movie_id}/similar?api_key=${BuildConfig.API_KEY}")
-    fun fetchSimilarMoviesAsync(@Path("movie_id") movieId: Int) : Deferred<Response<MovieItem>>
+    @GET(MovieConstants.MovieDetails.MOVIE_SIMILAR)
+    fun fetchSimilarMoviesAsync(@Path(MovieConstants.MovieDetails.KEY_MOVIE_ID) movieId: Int): Deferred<Response<MovieItem>>
 
-    @GET("/3/movie/{movie_id}/credits?api_key=${BuildConfig.API_KEY}")
-    fun fetchMoviesCastAsync(@Path("movie_id") movieId: Int) : Deferred<Response<MovieCast>>
+    @GET(MovieConstants.MovieDetails.MOVIE_CREDITS)
+    fun fetchMoviesCreditAsync(@Path(MovieConstants.MovieDetails.KEY_MOVIE_ID) movieId: Int): Deferred<Response<MovieCredit>>
 }

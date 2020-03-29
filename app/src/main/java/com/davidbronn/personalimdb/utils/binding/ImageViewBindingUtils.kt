@@ -2,9 +2,10 @@ package com.davidbronn.personalimdb.utils.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import coil.api.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.davidbronn.personalimdb.R
-import com.davidbronn.personalimdb.utils.misc.MovieUrls
+import com.davidbronn.personalimdb.utils.misc.MovieConstants
 
 /**
  * Created by Jude on 12/January/2020
@@ -12,26 +13,24 @@ import com.davidbronn.personalimdb.utils.misc.MovieUrls
 object ImageViewBindingUtils {
 
     private const val IMAGE_URL = "imageUrl"
-    private const val IMAGE_BACKDROP = "image_backdrop"
+    private const val IMAGE_BACKDROP = "imageBackDrop"
 
     @JvmStatic
     @BindingAdapter(IMAGE_URL)
-    fun ImageView.setDefaultLoader(url: String?) {
-        if (!url.isNullOrBlank()) {
-            this.load(MovieUrls.POSTER_200 + url) {
-                placeholder(R.drawable.movie_placeholder)
-                crossfade(true)
-            }
-        }
+    fun ImageView.setImagePosterUrl(url: String?) {
+        Glide.with(this)
+            .load(MovieConstants.Urls.POSTER_200 + url)
+            .placeholder(R.drawable.img_movie_placeholder)
+            .error(R.drawable.img_movie_placeholder)
+            .into(this)
     }
 
     @JvmStatic
     @BindingAdapter(IMAGE_BACKDROP)
-    fun ImageView.setImageBackDrop(url: String?) {
-        if (!url.isNullOrBlank()) {
-            this.load(MovieUrls.POSTER_500 + url) {
-                crossfade(true)
-            }
-        }
+    fun ImageView.setImageBackDropUrl(url: String?) {
+        Glide.with(this)
+            .load(MovieConstants.Urls.POSTER_500 + url)
+            .transition(DrawableTransitionOptions.withCrossFade(500))
+            .into(this)
     }
 }

@@ -18,7 +18,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="center"
+            app:tabMode="scrollable"
             app:tabIndicator="@drawable/tab_dot_selector"
+            app:tabIndicatorColor="#BD45D5"
             app:tabIndicatorHeight="10dp" />
 
         <androidx.viewpager.widget.ViewPager

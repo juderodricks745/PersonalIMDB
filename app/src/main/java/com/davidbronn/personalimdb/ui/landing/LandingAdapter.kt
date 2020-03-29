@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.davidbronn.personalimdb.ui.annotations.MovieType
 import com.davidbronn.personalimdb.ui.movieslist.MoviesListFragment
-import com.davidbronn.personalimdb.utils.misc.AppConstants
+import com.davidbronn.personalimdb.utils.misc.MovieConstants
 
 /**
  * Created by Jude on 13/January/2020
@@ -18,20 +18,18 @@ class LandingAdapter(manager: FragmentManager) :
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> MoviesListFragment.newInstance(MovieType.MOVIES_LATEST)
-            1 -> MoviesListFragment.newInstance(MovieType.MOVIES_NOW_PLAYING)
-            2 -> MoviesListFragment.newInstance(MovieType.MOVIES_POPULAR)
-            3 -> MoviesListFragment.newInstance(MovieType.MOVIES_TOP_RATED)
-            4 -> MoviesListFragment.newInstance(MovieType.MOVIES_UPCOMING)
+            0 -> MoviesListFragment.newInstance(MovieType.MOVIES_NOW_PLAYING)
+            1 -> MoviesListFragment.newInstance(MovieType.MOVIES_POPULAR)
+            2 -> MoviesListFragment.newInstance(MovieType.MOVIES_TOP_RATED)
             else -> MoviesListFragment.newInstance(MovieType.MOVIES_UPCOMING)
         }
     }
 
     override fun getCount(): Int {
-        return AppConstants.MOVIE_TITLES.size
+        return MovieConstants.Titles.MOVIE_TITLES.size
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return AppConstants.MOVIE_TITLES[position]
+        return MovieConstants.Titles.MOVIE_TITLES[position]
     }
 }

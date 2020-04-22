@@ -28,5 +28,5 @@ val movieDetails = module {
 
     factory { MovieDetailsRepositoryImpl(get(), get()) as MovieDetailsRepository}
 
-    factory { MovieDetailsViewModel(get()) }
+    factory { MovieDetailsViewModel(getProperty(KoinKeys.MOVIE_ID), get()) }
 }

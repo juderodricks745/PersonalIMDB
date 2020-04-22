@@ -47,7 +47,7 @@ class MoviesListFragment : Fragment(),
         val movieItem = item as ResultsItem
         MovieDetailsActivity.startMovieDetailsActivity(
             activity!!,
-            movieItem
+            movieItem.id!!
         )
     }
 

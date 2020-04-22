@@ -9,12 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivityMovieDetailsBinding
-import com.davidbronn.personalimdb.models.network.ResultsItem
+import com.davidbronn.personalimdb.di.KoinKeys
 import com.davidbronn.personalimdb.utils.decorations.SpacesItemDecoration
 import com.davidbronn.personalimdb.utils.helpers.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.KoinComponent
 
-class MovieDetailsActivity : AppCompatActivity() {
+class MovieDetailsActivity : AppCompatActivity(), KoinComponent {
 
     private var castAdapter: MovieCastItemAdapter? = null
     private var moviesAdapter: MovieCastItemAdapter? = null
@@ -25,10 +26,9 @@ class MovieDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_details)
+        getKoin().setProperty(KoinKeys.MOVIE_ID, getMovieId())
         binding.lifecycleOwner = this
         binding.vm = viewModel
-
-        viewModel.fetchMovieAndRelatedDetails(getMovieItem())
 
         setEvents()
         setObservers()
@@ -83,14 +83,14 @@ class MovieDetailsActivity : AppCompatActivity() {
         })
     }
 
-    private fun getMovieItem(): ResultsItem = intent.extras?.getParcelable(MOVIE_ITEM)!!
+    private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!
 
     companion object {
-        const val MOVIE_ITEM = "movie_item"
+        const val MOVIE_ID = "movie_id"
 
-        fun startMovieDetailsActivity(context: Context, resultItem: ResultsItem) {
+        fun startMovieDetailsActivity(context: Context, movieID: Int) {
             val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra(MOVIE_ITEM, resultItem)
+            intent.putExtra(MOVIE_ID, movieID)
             context.startActivity(intent)
         }
     }

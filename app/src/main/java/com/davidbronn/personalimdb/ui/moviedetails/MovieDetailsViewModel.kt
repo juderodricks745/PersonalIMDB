@@ -26,6 +26,7 @@ class MovieDetailsViewModel(
     val runtime = MutableLiveData<String>().apply { value = "" }
     val synopsis = MutableLiveData<String>().apply { value = "" }
     val posterPath = MutableLiveData<String>().apply { value = "" }
+    val tagLine = MutableLiveData<String>().apply { value = "" }
     val releaseDate = MutableLiveData<String>().apply { value = "" }
     val backDropPath = MutableLiveData<String>().apply { value = "" }
     val isMovieLiked = MutableLiveData<Boolean>().apply { value = false }
@@ -57,11 +58,9 @@ class MovieDetailsViewModel(
         movieId = movieItem.id!!
         handleMovieDetailsFromList(movieItem)
         viewModelScope.launch {
-            //progress.value = true
             val movieDetails = async { repository.getMovieDetails(movieId) }.await()
             val similarMovies = async { repository.fetchSimilarMovies(movieId) }.await()
             val movieCast = async { repository.fetchMoviesCast(movieId) }.await()
-            //progress.value = false
             movieDetails?.let { handleMovieDetail(it) }
             similarMovies?.let { handleSimilarMovies(it) }
             movieCast?.let { handleMoviesCast(it) }
@@ -81,6 +80,7 @@ class MovieDetailsViewModel(
         when (response) {
             is Result.Success -> {
                 runtime.value = response.data.movieRuntime()
+                tagLine.value = "\"${response.data.tagline}\""
                 releaseDate.value = response.data.releaseDate
                 genres.value = response.data.genres?.map { it?.name }?.joinToString(", ")
             }
@@ -93,11 +93,11 @@ class MovieDetailsViewModel(
     private fun handleSimilarMovies(response: Result<List<ResultsItem?>?>) {
         when (response) {
             is Result.Success -> {
-                response.data?.let {
-                    if (!it.isNullOrEmpty()) {
+                response.data?.let { similar ->
+                    if (!similar.isNullOrEmpty()) {
                         showMoviesIfAvailable.value = true
                         val movieItems =
-                            if (it.size > 10) it.take(10) else it
+                            if (similar.size > 9) similar.take(9) else similar
                         val movies = movieItems.map { item ->
                             MovieCastItem(
                                 url = item?.posterPath,
@@ -119,12 +119,16 @@ class MovieDetailsViewModel(
     private fun handleMoviesCast(response: Result<List<CastItem?>?>) {
         when (response) {
             is Result.Success -> {
-                response.data?.let {
-                    if (!it.isNullOrEmpty()) {
+                response.data?.let { castlist ->
+                    if (!castlist.isNullOrEmpty()) {
                         showCastsIfAvailable.value = true
                         val creditItems =
-                            if (it.size > 10) it.take(10) else it
-                        val credits = creditItems.map { item ->
+                            if (castlist.size > 9) castlist.take(9) else castlist
+                        val credits = creditItems
+                            .filter { item ->
+                                !item?.profilePath.isNullOrBlank()
+                            }
+                            .map { item ->
                             MovieCastItem(
                                 url = item?.profilePath,
                                 title = item?.name,

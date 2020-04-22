@@ -91,4 +91,6 @@ dependencies
             // Room Dependencies
             implementation "androidx.room:room-runtime:2.2.5"
             kapt "androidx.room:room-compiler:2.2.5"
+            // Palette Dependencies
+            implementation 'androidx.palette:palette:1.0.0'
         }

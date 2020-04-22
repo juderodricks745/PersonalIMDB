@@ -40,6 +40,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sIvPoster"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:transitionName="poster"
+                app:cardCornerRadius="@dimen/dp_5"
+                app:cardElevation="@dimen/dp_3"
+                app:imageUrl="@{vm.posterPath}"
+                app:layout_constraintBottom_toBottomOf="@id/ivBackdropPath"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintLeft_toLeftOf="@id/ivBackdropPath"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,71 +78,6 @@
                 app:tint="#FF0000"
                 tools:src="@drawable/ic_filled" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/sIvPoster"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:transitionName="poster"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="2dp"
-                app:imageUrl="@{vm.posterPath}"
-                app:layout_constraintBottom_toBottomOf="@+id/ivBackdropPath"
-                app:layout_constraintHeight_percent="0.25"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivBackdropPath"
-                app:layout_constraintWidth_percent="0.3" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvReleaseDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="15dp"
-                android:text="@{vm.releaseDate}"
-                app:layout_constraintLeft_toRightOf="@id/sIvPoster"
-                app:layout_constraintTop_toBottomOf="@id/ivBackdropPath"
-                tools:text="1990-12-12" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTagLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@{vm.runtime}"
-                app:layout_constraintLeft_toLeftOf="@id/tvReleaseDate"
-                app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
-                tools:text="100 mins" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvGenres"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="@{vm.genres}"
-                app:layout_constraintLeft_toLeftOf="@id/tvReleaseDate"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTagLine"
-                tools:text="Action, Adventure" />
-
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@{vm.title}"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-
-                app:layout_constraintBottom_toBottomOf="@+id/ivBack"
-                app:layout_constraintLeft_toRightOf="@id/ivBack"
-                app:layout_constraintTop_toTopOf="@+id/ivBack"
-                tools:text="IT: Chapter Two" />
-
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollView"
                 android:layout_width="0dp"
@@ -135,12 +85,55 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sIvPoster">
+                app:layout_constraintTop_toBottomOf="@id/ivBackdropPath">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTagline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="15dp"
+                        android:text="@{vm.tagLine}"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="1990-12-12" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvReleaseDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="5dp"
+                        android:text="@{vm.releaseDate}"
+                        android:textSize="14sp"
+                        tools:text="1990-12-12" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTagLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="5dp"
+                        android:text="@{vm.runtime}"
+                        android:textSize="14sp"
+                        tools:text="100 mins" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvGenres"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@{vm.genres}"
+                        android:textSize="14sp"
+                        tools:text="Action, Adventure" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cvSynopsis"

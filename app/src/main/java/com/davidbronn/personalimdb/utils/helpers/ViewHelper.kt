@@ -10,6 +10,10 @@ import android.view.animation.ScaleAnimation
  * Created by Jude on 07/March/2020
  */
 
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
 fun View.scale() {
     ScaleAnimation(
         0f, 1f,

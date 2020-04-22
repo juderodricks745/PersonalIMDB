@@ -6,11 +6,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivityMovieDetailsBinding
 import com.davidbronn.personalimdb.models.network.ResultsItem
-import com.davidbronn.personalimdb.utils.helpers.scale
+import com.davidbronn.personalimdb.utils.decorations.SpacesItemDecoration
+import com.davidbronn.personalimdb.utils.helpers.visible
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -43,13 +44,21 @@ class MovieDetailsActivity : AppCompatActivity() {
     private fun setCastAndSimilarMoviesAdapter() {
         castAdapter = MovieCastItemAdapter()
         binding.rvCast.adapter = castAdapter
+        binding.rvCast.addItemDecoration(SpacesItemDecoration(resources.getDimensionPixelSize(R.dimen.dp_10)))
         binding.rvCast.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
 
         moviesAdapter = MovieCastItemAdapter()
         binding.rvSimilarMovies.adapter = moviesAdapter
+        binding.rvSimilarMovies.addItemDecoration(
+            SpacesItemDecoration(
+                resources.getDimensionPixelSize(
+                    R.dimen.dp_10
+                )
+            )
+        )
         binding.rvSimilarMovies.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
     }
 
     private fun setObservers() {
@@ -63,13 +72,13 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         viewModel.showCastsIfAvailable.observe(this, Observer {
             if (it) {
-                binding.cvCast.scale()
+                binding.cvCast.visible()
             }
         })
 
         viewModel.showMoviesIfAvailable.observe(this, Observer {
             if (it) {
-                binding.cvSimilarMovies.scale()
+                binding.cvSimilarMovies.visible()
             }
         })
     }

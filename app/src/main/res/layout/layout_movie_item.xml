@@ -40,7 +40,6 @@
             android:id="@+id/sIvPoster"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="center"
             android:transitionName="poster"
             app:imageUrl="@{item.posterPath}"
             app:layout_constraintBottom_toBottomOf="@+id/llUseLess"

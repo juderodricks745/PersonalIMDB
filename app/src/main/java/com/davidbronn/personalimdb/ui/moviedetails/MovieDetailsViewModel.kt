@@ -120,7 +120,6 @@ class MovieDetailsViewModel(
             is Result.Success -> {
                 response.data?.let { castlist ->
                     if (!castlist.isNullOrEmpty()) {
-                        showCastsIfAvailable.value = true
                         val creditItems =
                             if (castlist.size > 9) castlist.take(9) else castlist
                         val credits = creditItems
@@ -128,13 +127,16 @@ class MovieDetailsViewModel(
                                 !item?.profilePath.isNullOrBlank()
                             }
                             .map { item ->
-                            MovieCastItem(
-                                url = item?.profilePath,
-                                title = item?.name,
-                                isMovie = false
-                            )
+                                MovieCastItem(
+                                    url = item?.profilePath,
+                                    title = item?.name,
+                                    isMovie = false
+                                )
+                            }
+                        if (credits.isNotEmpty()) {
+                            showCastsIfAvailable.value = true
+                            creditListLiveData.value = credits
                         }
-                        creditListLiveData.value = credits
                     }
                 }
             }

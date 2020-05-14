@@ -17,10 +17,10 @@ import timber.log.Timber
  * Created by Jude on 12/January/2020
  */
 class MovieDetailsViewModel(
+    private val movieID: Int,
     private val repository: MovieDetailsRepository
 ) : ViewModel() {
 
-    private var movieId = 0
     val title = MutableLiveData<String>().apply { value = "" }
     val genres = MutableLiveData<String>().apply { value = "" }
     val runtime = MutableLiveData<String>().apply { value = "" }
@@ -38,47 +38,46 @@ class MovieDetailsViewModel(
     val showCastsIfAvailable = MutableLiveData<Boolean>().apply { value = false }
     val showMoviesIfAvailable = MutableLiveData<Boolean>().apply { value = false }
 
+    init {
+        fetchMovieAndRelatedDetails()
+    }
+
     /**
      * Sets whether the movie is liked/not liked
      */
     fun setLikedMovie() {
-        if (repository.checkIfLikedMovie(movieId) != null) {
-            repository.deleteMovie(movieId, false)
+        if (repository.checkIfLikedMovie(movieID) != null) {
+            repository.deleteMovie(movieID, false)
         } else {
-            repository.insertMovie(movieId, true)
+            repository.insertMovie(movieID, true)
         }
-        isMovieLiked.value = repository.checkIfLikedMovie(movieId) != null
+        isMovieLiked.value = repository.checkIfLikedMovie(movieID) != null
     }
 
     /**
      * Fetches Movie Details for the respective Movie ID, also fetches the similar
      * kind of movies & the cast associated with the movie
      */
-    fun fetchMovieAndRelatedDetails(movieItem: ResultsItem) {
-        movieId = movieItem.id!!
-        handleMovieDetailsFromList(movieItem)
+    private fun fetchMovieAndRelatedDetails() {
         viewModelScope.launch {
-            val movieDetails = async { repository.getMovieDetails(movieId) }.await()
-            val similarMovies = async { repository.fetchSimilarMovies(movieId) }.await()
-            val movieCast = async { repository.fetchMoviesCast(movieId) }.await()
+            val movieDetails = async { repository.getMovieDetails(movieID) }.await()
+            val similarMovies = async { repository.fetchSimilarMovies(movieID) }.await()
+            val movieCast = async { repository.fetchMoviesCast(movieID) }.await()
             movieDetails?.let { handleMovieDetail(it) }
             similarMovies?.let { handleSimilarMovies(it) }
             movieCast?.let { handleMoviesCast(it) }
         }
     }
 
-    private fun handleMovieDetailsFromList(movieItem: ResultsItem) {
-        title.value = movieItem.title
-        synopsis.value = movieItem.overview
-        releaseDate.value = movieItem.releaseDate
-        backDropPath.value = movieItem.backdropPath
-        isMovieLiked.value = repository.checkIfLikedMovie(movieId) != null
-        posterPath.value = movieItem.posterPath
-    }
-
     private fun handleMovieDetail(response: Result<MovieDetails>) {
         when (response) {
             is Result.Success -> {
+                title.value = response.data.title
+                synopsis.value = response.data.overview
+                posterPath.value = response.data.posterPath
+                releaseDate.value = response.data.releaseDate
+                backDropPath.value = response.data.backdropPath
+                isMovieLiked.value = repository.checkIfLikedMovie(movieID) != null
                 runtime.value = response.data.movieRuntime()
                 tagLine.value = "\"${response.data.tagline}\""
                 releaseDate.value = response.data.releaseDate
@@ -121,7 +120,6 @@ class MovieDetailsViewModel(
             is Result.Success -> {
                 response.data?.let { castlist ->
                     if (!castlist.isNullOrEmpty()) {
-                        showCastsIfAvailable.value = true
                         val creditItems =
                             if (castlist.size > 9) castlist.take(9) else castlist
                         val credits = creditItems
@@ -129,13 +127,16 @@ class MovieDetailsViewModel(
                                 !item?.profilePath.isNullOrBlank()
                             }
                             .map { item ->
-                            MovieCastItem(
-                                url = item?.profilePath,
-                                title = item?.name,
-                                isMovie = false
-                            )
+                                MovieCastItem(
+                                    url = item?.profilePath,
+                                    title = item?.name,
+                                    isMovie = false
+                                )
+                            }
+                        if (credits.isNotEmpty()) {
+                            showCastsIfAvailable.value = true
+                            creditListLiveData.value = credits
                         }
-                        creditListLiveData.value = credits
                     }
                 }
             }

@@ -17,19 +17,19 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
                                  private val dao: LikedMovieDao)
     : MovieDetailsRepository {
 
-    override fun deleteMovie(movieId: Int, movieStatus: Boolean) {
+    override fun deleteMovie(movieId: kotlin.Int, movieStatus: Boolean) {
         dao.deleteMovie(LikedMovie(movieId, movieStatus))
     }
 
-    override fun checkIfLikedMovie(movieId: Int): LikedMovie? {
+    override fun checkIfLikedMovie(movieId: kotlin.Int): LikedMovie? {
         return dao.checkLikedMovie(movieId)
     }
 
-    override fun insertMovie(movieId: Int, movieStatus: Boolean) {
+    override fun insertMovie(movieId: kotlin.Int, movieStatus: Boolean) {
         dao.insertMovie(LikedMovie(movieId, movieStatus))
     }
 
-    override suspend fun fetchMoviesCast(movieId: Int): Result<List<CastItem?>>? {
+    override suspend fun fetchMoviesCast(movieId: kotlin.Int): Result<List<CastItem?>>? {
         return withContext(Dispatchers.IO) {
             val response = api.fetchMoviesCreditAsync(movieId).await()
             if (response.isSuccessful) {
@@ -44,7 +44,7 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
         }
     }
 
-    override suspend fun fetchSimilarMovies(movieId: Int): Result<List<ResultsItem?>?>? {
+    override suspend fun fetchSimilarMovies(movieId: kotlin.Int): Result<List<ResultsItem?>?>? {
         return withContext(Dispatchers.IO) {
             val response = api.fetchSimilarMoviesAsync(movieId).await()
             if (response.isSuccessful) {
@@ -59,7 +59,7 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
         }
     }
 
-    override suspend fun getMovieDetails(movieId: Int): Result<MovieDetails>? {
+    override suspend fun getMovieDetails(movieId: kotlin.Int): Result<MovieDetails>? {
         return withContext(Dispatchers.IO) {
             val response = api.fetchMovieDetailsAsync(movieId).await()
             if (response.isSuccessful) {

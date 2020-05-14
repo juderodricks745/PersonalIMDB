@@ -17,7 +17,10 @@ class SearchMoviesAdapter : RecyclerView.Adapter<SearchMoviesAdapter.SearchMovie
 
     private var movieResults = mutableListOf<ResultsItem?>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchMoviesViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: kotlin.Int
+    ): SearchMoviesViewHolder {
         val binding = DataBindingUtil.inflate<LayoutMovieItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.layout_movie_item, parent, false
@@ -25,11 +28,11 @@ class SearchMoviesAdapter : RecyclerView.Adapter<SearchMoviesAdapter.SearchMovie
         return SearchMoviesViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
+    override fun getItemCount(): kotlin.Int {
         return movieResults.size
     }
 
-    override fun onBindViewHolder(holder: SearchMoviesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchMoviesViewHolder, position: kotlin.Int) {
         val movieItem = movieResults[position]
         movieItem?.let { holder.bindItem(movieItem) }
         setAnimation(holder.binding.root)

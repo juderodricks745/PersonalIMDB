@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivitySearchMoviesBinding
 import com.davidbronn.personalimdb.utils.helpers.withSnack
@@ -48,8 +47,6 @@ class SearchMoviesActivity : AppCompatActivity() {
     private fun setMoviesAdapter() {
         moviesAdapter = SearchMoviesAdapter()
         binding.rvMovies.adapter = moviesAdapter
-        binding.rvMovies.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun setObservers() {

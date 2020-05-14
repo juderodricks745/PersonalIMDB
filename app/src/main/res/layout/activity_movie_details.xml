@@ -71,12 +71,11 @@
                 android:layout_marginEnd="10dp"
                 android:onClick="@{() -> vm.setLikedMovie()}"
                 android:src="@{vm.isMovieLiked ? @drawable/ic_filled : @drawable/ic_unfilled}"
-                app:backgroundTint="#98D1F1"
+                app:backgroundTint="?attr/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="@+id/ivBackdropPath"
                 app:layout_constraintRight_toRightOf="@id/ivBackdropPath"
                 app:layout_constraintTop_toBottomOf="@+id/ivBackdropPath"
-                app:tint="#FF0000"
-                tools:src="@drawable/ic_filled" />
+                app:tint="@color/c_white" />
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollView"

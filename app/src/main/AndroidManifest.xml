@@ -27,7 +27,8 @@
 
         <activity
             android:name=".ui.landing.LandingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Home" />
 
         <activity
             android:name=".ui.moviedetails.MovieDetailsActivity"

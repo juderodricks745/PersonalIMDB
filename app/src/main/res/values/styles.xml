@@ -10,4 +10,9 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <style name="AppTheme.Home">
+        <item name="android:windowExitTransition">@transition/grid_exit</item>
+        <item name="android:windowReenterTransition">@transition/grid_reenter</item>
+    </style>
+
 </resources>

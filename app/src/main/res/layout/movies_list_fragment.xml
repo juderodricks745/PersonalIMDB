@@ -17,7 +17,7 @@
         android:id="@+id/clRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryDark">
+        android:background="?attr/fragment_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

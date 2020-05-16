@@ -15,7 +15,6 @@ import com.davidbronn.personalimdb.databinding.ActivityMovieDetailsBinding
 import com.davidbronn.personalimdb.di.KoinKeys
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.utils.decorations.SpacesItemDecoration
-import com.davidbronn.personalimdb.utils.helpers.fadeEnterTransitionWithExclusion
 import com.davidbronn.personalimdb.utils.helpers.viewCenterScale
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
@@ -35,11 +34,6 @@ class MovieDetailsActivity : AppCompatActivity(), KoinComponent {
         getKoin().setProperty(KoinKeys.MOVIE_ID, getMovieId())
         binding.lifecycleOwner = this
         binding.vm = viewModel
-
-        window.enterTransition = fadeEnterTransitionWithExclusion {
-            excludeTarget(android.R.id.statusBarBackground, true)
-            excludeTarget(android.R.id.navigationBarBackground, true)
-        }
 
         setEvents()
         setObservers()

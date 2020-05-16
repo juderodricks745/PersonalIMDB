@@ -21,9 +21,10 @@
             android:id="@+id/sIvPoster"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:transitionName="poster"
-            app:imageUrl="@{item.posterPath}"
             android:scaleType="fitXY"
+            android:transitionName="poster"
+            app:imageTitle="@{tvTitle}"
+            app:imageUrl="@{item.posterPath}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -32,25 +33,19 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
+            style="@style/MovieTitleWithOutTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:padding="@dimen/dp_15"
+            android:ellipsize="end"
+            android:padding="@dimen/dp_5"
+            android:singleLine="true"
             android:text="@{item.title}"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:textStyle="bold"
             tools:text="Fight Club" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:paddingEnd="@dimen/dp_15"
-            android:text="@{item.revisedVoteCount}"
-            android:textColor="#070707"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            tools:text="9.9" />
+        <com.davidbronn.personalimdb.ui.widget.FavoriteIconView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end" />
     </androidx.cardview.widget.CardView>
 </layout>

@@ -81,6 +81,7 @@
                 android:id="@+id/scrollView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="?attr/fragment_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -93,37 +94,37 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvTagline"
+                        style="@style/MovieTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="15dp"
                         android:text="@{vm.tagLine}"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
                         tools:text="1990-12-12" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvReleaseDate"
+                        style="@style/MovieSubTextNoBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="5dp"
                         android:text="@{vm.releaseDate}"
-                        android:textSize="14sp"
                         tools:text="1990-12-12" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvTagLine"
+                        style="@style/MovieSubTextNoBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="5dp"
                         android:text="@{vm.runtime}"
-                        android:textSize="14sp"
                         tools:text="100 mins" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvGenres"
+                        style="@style/MovieSubTextNoBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
@@ -131,38 +132,38 @@
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="@{vm.genres}"
-                        android:textSize="14sp"
                         tools:text="Action, Adventure" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cvSynopsis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp">
+                        android:layout_margin="@dimen/dp_10"
+                        app:cardElevation="@dimen/dp_5">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:background="?attr/fragment_background">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/lblSynposis"
+                                style="@style/MovieDetailBold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/lbl_synopsis"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvSynposis"
+                                style="@style/MovieSubTextNoBold"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:text="@{vm.synopsis}"
-                                android:textSize="14sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
@@ -175,23 +176,24 @@
                         android:id="@+id/cvCast"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:visibility="gone">
+                        android:layout_margin="@dimen/dp_10"
+                        android:visibility="gone"
+                        app:cardElevation="@dimen/dp_5"
+                        tools:visibility="gone">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:background="?attr/fragment_background">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/lblCast"
+                                style="@style/MovieDetailBold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/cast"
-                                android:textColor="#000000"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -211,23 +213,24 @@
                         android:id="@+id/cvSimilarMovies"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:visibility="gone">
+                        android:layout_margin="@dimen/dp_10"
+                        android:visibility="gone"
+                        app:cardElevation="@dimen/dp_5"
+                        tools:visibility="gone">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:background="?attr/fragment_background">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/lblSimilarMovies"
+                                style="@style/MovieDetailBold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginTop="10dp"
                                 android:text="@string/similar_movies"
-                                android:textColor="#000000"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -34,4 +34,21 @@
         <item name="android:textColor">?attr/titleBoldColor</item>
     </style>
 
+    <style name="MovieDetailBold">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/titleBoldColor</item>
+    </style>
+
+    <style name="MovieSubTextNoBold">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/titleBoldColor</item>
+    </style>
+
+    <style name="MovieTitleWithOutTheme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/c_white</item>
+    </style>
+
 </resources>

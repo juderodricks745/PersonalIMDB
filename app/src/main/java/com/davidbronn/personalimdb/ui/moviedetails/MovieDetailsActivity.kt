@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.OvershootInterpolator
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -14,6 +13,7 @@ import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivityMovieDetailsBinding
 import com.davidbronn.personalimdb.di.KoinKeys
 import com.davidbronn.personalimdb.models.network.ResultsItem
+import com.davidbronn.personalimdb.ui.base.BaseActivity
 import com.davidbronn.personalimdb.utils.decorations.SpacesItemDecoration
 import com.davidbronn.personalimdb.utils.helpers.fadeEnterTransitionWithExclusion
 import com.davidbronn.personalimdb.utils.helpers.viewCenterScale
@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 
-class MovieDetailsActivity : AppCompatActivity(), KoinComponent {
+class MovieDetailsActivity : BaseActivity(), KoinComponent {
 
     private var castAdapter: MovieCastItemAdapter? = null
     private var moviesAdapter: MovieCastItemAdapter? = null
@@ -30,6 +30,7 @@ class MovieDetailsActivity : AppCompatActivity(), KoinComponent {
     private lateinit var binding: ActivityMovieDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setAppTheme()
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_details)
         getKoin().setProperty(KoinKeys.MOVIE_ID, getMovieId())
@@ -100,8 +101,6 @@ class MovieDetailsActivity : AppCompatActivity(), KoinComponent {
     }
 
     private fun getMovieId(): Int = intent.extras?.getInt(MOVIE_ID)!!
-
-    private fun getMoviePosterUrl(): String = intent.extras?.getString(MOVIE_URL)!!
 
     private fun View.startCenterScaling() {
         this.viewCenterScale {

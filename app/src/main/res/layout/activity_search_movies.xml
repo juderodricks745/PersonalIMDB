@@ -28,6 +28,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/drawable_rounded_rectangle"
             android:drawableEnd="@drawable/ic_search_black_24dp"
+            android:drawableTint="?attr/colorPrimaryDark"
             android:imeOptions="actionDone"
             android:maxLength="20"
             android:paddingStart="15dp"
@@ -40,11 +41,12 @@
             tools:ignore="RtlSymmetry"
             tools:text="Rick and Morty" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.davidbronn.personalimdb.ui.widget.AutofitRecyclerView
             android:id="@+id/rvMovies"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="10dp"
+            android:columnWidth="@dimen/dp_180"
             android:visibility="@{vm.progress ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorPrimary" format="color" />
+    <attr name="colorPrimaryDark" format="color" />
+    <attr name="bottomNavBackground" format="color" />
+    <attr name="fragment_background" format="color" />
+    <attr name="titleBoldColor" format="color" />
+</resources>

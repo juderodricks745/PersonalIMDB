@@ -10,116 +10,41 @@
             type="com.davidbronn.personalimdb.models.network.ResultsItem" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F9F9F9">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.35" />
-
-        <LinearLayout
-            android:id="@+id/llUseLess"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/rounded_corner_movie_item"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="@dimen/dp_5"
+        android:background="?attr/fragment_background"
+        app:cardElevation="@dimen/z_movie_item">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/sIvPoster"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:transitionName="poster"
+            app:imageTitle="@{tvTitle}"
             app:imageUrl="@{item.posterPath}"
-            app:layout_constraintBottom_toBottomOf="@+id/llUseLess"
-            app:layout_constraintHeight_percent="0.75"
-            app:layout_constraintLeft_toLeftOf="@id/llUseLess"
-            app:layout_constraintRight_toRightOf="@id/guideLine"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintWidth_percent="0.20"
             tools:src="@drawable/img_movie_placeholder" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/llContent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/llUseLess"
-            app:layout_constraintLeft_toRightOf="@id/guideLine"
-            app:layout_constraintRight_toRightOf="@id/llUseLess"
-            app:layout_constraintTop_toTopOf="@id/llUseLess">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            style="@style/MovieTitleWithOutTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:ellipsize="end"
+            android:padding="@dimen/dp_5"
+            android:singleLine="true"
+            android:text="@{item.title}"
+            tools:text="Fight Club" />
 
-            <LinearLayout
-                android:id="@+id/llTitleRating"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="spread">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.85"
-                    android:text="@{item.title}"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    tools:text="Fight Club" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.15"
-                    android:gravity="end"
-                    android:text="@{item.revisedVoteCount}"
-                    android:textColor="#070707"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    tools:text="9.9" />
-            </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvOriginalTitle"
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="5dp"
-                android:text="@{item.originalTitle}"
-                android:textColor="#000000"
-                app:layout_constraintLeft_toLeftOf="@id/llTitleRating"
-                app:layout_constraintRight_toRightOf="@id/llTitleRating"
-                app:layout_constraintTop_toBottomOf="@+id/llTitleRating"
-                app:layout_constraintVertical_chainStyle="spread"
-                tools:text="Fight Club" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvReleaseDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@{item.releaseDate}"
-                android:textColor="#000000"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintLeft_toLeftOf="@id/llTitleRating"
-                app:layout_constraintRight_toRightOf="@id/llTitleRating"
-                app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitle"
-                app:layout_constraintVertical_chainStyle="spread"
-                tools:text="1972-03-14" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.davidbronn.personalimdb.ui.widget.FavoriteIconView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end" />
+    </androidx.cardview.widget.CardView>
 </layout>

@@ -9,7 +9,6 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.MoviesListFragmentBinding
 import com.davidbronn.personalimdb.di.KoinKeys
@@ -93,8 +92,6 @@ class MoviesListFragment : Fragment(),
         adapter = MoviesAdapter()
         adapter?.setItemClickListener(this)
         binding.rvMovies.adapter = adapter
-        binding.rvMovies.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun getMovieType() = arguments!!.getInt(MOVIE_TYPE)

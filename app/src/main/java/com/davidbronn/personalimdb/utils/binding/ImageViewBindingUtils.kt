@@ -52,6 +52,7 @@ object ImageViewBindingUtils {
             .asBitmap()
             .load(MovieConstants.Urls.POSTER_200 + url)
             .apply(RequestOptions().centerCrop())
+            .placeholder(R.drawable.img_movie_placeholder)
             .into(object : BitmapImageViewTarget(this) {
                 override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
                     super.onResourceReady(bitmap, transition)

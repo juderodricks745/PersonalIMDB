@@ -21,7 +21,6 @@
             android:id="@+id/sIvPoster"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:scaleType="fitXY"
             android:transitionName="poster"
             app:imageTitle="@{tvTitle}"
             app:imageUrl="@{item.posterPath}"

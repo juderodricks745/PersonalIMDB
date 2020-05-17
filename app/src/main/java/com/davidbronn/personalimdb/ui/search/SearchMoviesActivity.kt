@@ -4,21 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivitySearchMoviesBinding
+import com.davidbronn.personalimdb.ui.base.BaseActivity
 import com.davidbronn.personalimdb.utils.helpers.withSnack
 import com.davidbronn.personalimdb.utils.misc.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchMoviesActivity : AppCompatActivity() {
+class SearchMoviesActivity : BaseActivity() {
 
     private var moviesAdapter: SearchMoviesAdapter? = null
     private val viewModel: SearchMoviesViewModel by viewModel()
     private lateinit var binding: ActivitySearchMoviesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setAppTheme()
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_movies)
         binding.lifecycleOwner = this

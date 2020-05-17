@@ -24,17 +24,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.landing.LandingActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.moviedetails.MovieDetailsActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.search.SearchMoviesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.base.BaseActivity"
             android:screenOrientation="portrait" />
     </application>
 

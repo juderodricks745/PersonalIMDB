@@ -27,6 +27,7 @@ class MovieDetailsViewModel(
     val synopsis = MutableLiveData<String>().apply { value = "" }
     val posterPath = MutableLiveData<String>().apply { value = "" }
     val tagLine = MutableLiveData<String>().apply { value = "" }
+    val showTagLine = MutableLiveData<Boolean>().apply { value = true }
     val releaseDate = MutableLiveData<String>().apply { value = "" }
     val backDropPath = MutableLiveData<String>().apply { value = "" }
     val isMovieLiked = MutableLiveData<Boolean>().apply { value = false }
@@ -79,7 +80,12 @@ class MovieDetailsViewModel(
                 backDropPath.value = response.data.backdropPath
                 isMovieLiked.value = repository.checkIfLikedMovie(movieID) != null
                 runtime.value = response.data.movieRuntime()
-                tagLine.value = "\"${response.data.tagline}\""
+                if (!response.data.tagline.isNullOrBlank()) {
+                    showTagLine.value = true
+                    tagLine.value = "\"${response.data.tagline}\""
+                } else {
+                    showTagLine.value = false
+                }
                 releaseDate.value = response.data.releaseDate
                 genres.value = response.data.genres?.map { it?.name }?.joinToString(", ")
             }

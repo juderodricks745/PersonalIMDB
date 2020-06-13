@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 
 /**
  * Created by Jude on 06/September/2019
@@ -12,9 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 
 inline fun <reified T : ViewModel> Fragment.getViewModel(noinline creator: (() -> T)? = null): T {
     return if (creator == null)
-        ViewModelProviders.of(this).get(T::class.java)
+        ViewModelProvider(this).get(T::class.java)
     else
-        ViewModelProviders.of(
+        ViewModelProvider(
             this,
             BaseViewModelFactory(creator)
         ).get(T::class.java)
@@ -22,9 +21,9 @@ inline fun <reified T : ViewModel> Fragment.getViewModel(noinline creator: (() -
 
 inline fun <reified T : ViewModel> FragmentActivity.getViewModel(noinline creator: (() -> T)? = null): T {
     return if (creator == null)
-        ViewModelProviders.of(this).get(T::class.java)
+        ViewModelProvider(this).get(T::class.java)
     else
-        ViewModelProviders.of(
+        ViewModelProvider(
             this,
             BaseViewModelFactory(creator)
         ).get(T::class.java)

@@ -1,7 +1,8 @@
 package com.davidbronn.personalimdb.repository.searchmovies
 
 import com.davidbronn.personalimdb.models.network.MovieItem
-import com.davidbronn.personalimdb.utils.misc.MovieConstants
+import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesApi.ApiKeys.KEY_MOVIE_QUERY
+import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesApi.ApiKeys.MOVIE_SEARCH
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,9 +13,14 @@ import retrofit2.http.Query
  */
 interface SearchMoviesApi {
 
-    @GET(MovieConstants.MovieSearch.MOVIE_SEARCH)
+    @GET(MOVIE_SEARCH)
     fun fetchMoviesByTextAsync(
-        @Query(MovieConstants.MovieSearch.KEY_MOVIE_QUERY) query: String
+        @Query(KEY_MOVIE_QUERY) query: String
     )
             : Deferred<Response<MovieItem>>
+
+    object ApiKeys {
+        const val KEY_MOVIE_QUERY = "query"
+        const val MOVIE_SEARCH = "/3/search/movie"
+    }
 }

@@ -7,13 +7,9 @@ import android.content.SharedPreferences
  */
 class PreferenceHelper(private val prefs: SharedPreferences) {
 
-    fun getTheme(): String? {
-        return prefs.getString(IS_DARK, UNDEFINED_DARK_MODE)
-    }
+    fun getTheme(): String? = prefs.getString(IS_DARK, UNDEFINED_DARK_MODE)
 
-    fun setTheme(value: String) {
-        prefs.edit().putString(IS_DARK, value).apply()
-    }
+    fun setTheme(value: String) = prefs.edit().putString(IS_DARK, value).apply()
 
     companion object {
         const val IS_DARK = "is_dark"

@@ -8,21 +8,22 @@ import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.MoviesListFragmentBinding
 import com.davidbronn.personalimdb.di.KoinKeys
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.ui.interfaces.IRecyclerItemClickListener
 import com.davidbronn.personalimdb.ui.moviedetails.MovieDetailsActivity
-import com.davidbronn.personalimdb.utils.misc.NetworkState
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 class MoviesListFragment : Fragment(),
     IRecyclerItemClickListener, KoinComponent {
 
-    private var adapter: MoviesAdapter? = null
+    private lateinit var adapter: MoviesAdapter
     private lateinit var binding: MoviesListFragmentBinding
     private val viewModel: MoviesListViewModel by viewModel()
 
@@ -40,8 +41,8 @@ class MoviesListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setObservers()
         setMoviesAdapter()
+        setObservers()
     }
 
     override fun onItemClicked(view: View?, item: Any) {
@@ -61,37 +62,19 @@ class MoviesListFragment : Fragment(),
     }
 
     private fun setObservers() {
-        viewModel.getMovies()?.observe(viewLifecycleOwner, Observer { movieResults ->
-            adapter?.submitList(movieResults)
-        })
-
-        viewModel.loadingInitial()?.observe(viewLifecycleOwner, Observer { state ->
-            when (state) {
-                is NetworkState.Loading -> {
-                    viewModel.setInitialLoading(state.loading)
-                }
-                is NetworkState.NetworkError -> {
-                    viewModel.setInitialError(state.errorMessage)
-                }
+        lifecycleScope.launch {
+            viewModel.fetchMovies().collectLatest {
+                adapter.submitData(it)
             }
-        })
-
-        viewModel.loadingAfter()?.observe(viewLifecycleOwner, Observer { state ->
-            when (state) {
-                is NetworkState.Loading -> {
-                    viewModel.setBottomLoading(state.loading)
-                }
-                is NetworkState.NetworkError -> {
-                    viewModel.setBottomError(state.errorMessage)
-                }
-            }
-        })
+        }
     }
 
     private fun setMoviesAdapter() {
         adapter = MoviesAdapter()
-        adapter?.setItemClickListener(this)
-        binding.rvMovies.adapter = adapter
+        adapter.setItemClickListener(this)
+        binding.rvMovies.adapter = adapter.withLoadStateFooter(
+            footer = ReposLoadStateAdapter { adapter.retry() }
+        )
     }
 
     private fun getMovieType() = arguments!!.getInt(MOVIE_TYPE)

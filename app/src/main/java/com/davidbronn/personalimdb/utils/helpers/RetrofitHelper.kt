@@ -2,7 +2,6 @@ package com.davidbronn.personalimdb.utils.helpers
 
 import com.davidbronn.personalimdb.BuildConfig
 import com.davidbronn.personalimdb.utils.misc.MovieConstants
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -16,10 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 fun interceptor(): Interceptor {
     return HttpLoggingInterceptor().apply {
-        if (BuildConfig.DEBUG) {
-            level = HttpLoggingInterceptor.Level.BODY
+        level = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor.Level.BODY
         } else {
-            level = HttpLoggingInterceptor.Level.NONE
+            HttpLoggingInterceptor.Level.NONE
         }
     }
 }
@@ -35,7 +34,6 @@ fun retrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(okHttpClient)
-        .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }

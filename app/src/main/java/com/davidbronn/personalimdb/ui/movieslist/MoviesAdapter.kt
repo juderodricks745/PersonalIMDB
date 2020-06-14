@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.LayoutMovieItemBinding
@@ -15,7 +15,7 @@ import com.davidbronn.personalimdb.ui.interfaces.IRecyclerItemClickListener
  * Created by Jude on 12/January/2020
  */
 class MoviesAdapter :
-    PagedListAdapter<ResultsItem, MoviesAdapter.MoviesViewHolder>(ResultsItem.DIFF_CALLBACK) {
+    PagingDataAdapter<ResultsItem, MoviesAdapter.MoviesViewHolder>(ResultsItem.DIFF_CALLBACK) {
 
     private var itemClickListener: IRecyclerItemClickListener? = null
 

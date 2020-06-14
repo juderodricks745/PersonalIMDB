@@ -7,7 +7,7 @@ import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi.ApiKeys.M
 import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi.ApiKeys.MOVIE_POPULAR
 import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi.ApiKeys.MOVIE_TOP_RATED
 import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi.ApiKeys.MOVIE_UPCOMING
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -17,24 +17,24 @@ import retrofit2.http.Query
 interface MoviesListApi {
 
     @GET(MOVIE_LATEST)
-    fun fetchLatestMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
-            Call<MovieItem>
+    suspend fun fetchLatestMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
+            Response<MovieItem>
 
     @GET(MOVIE_NOW_PLAYING)
-    fun fetchNowPlayingMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
-            Call<MovieItem>
+    suspend fun fetchNowPlayingMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
+            Response<MovieItem>
 
     @GET(MOVIE_POPULAR)
-    fun fetchPopularMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
-            Call<MovieItem>
+    suspend fun fetchPopularMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
+            Response<MovieItem>
 
     @GET(MOVIE_TOP_RATED)
-    fun fetchTopRatedMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
-            Call<MovieItem>
+    suspend fun fetchTopRatedMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
+            Response<MovieItem>
 
     @GET(MOVIE_UPCOMING)
-    fun fetchUpcomingMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
-            Call<MovieItem>
+    suspend fun fetchUpcomingMoviesAsync(@Query(KEY_MOVIE_PAGE) pageNumber: Int):
+            Response<MovieItem>
 
     object ApiKeys {
         const val KEY_MOVIE_PAGE = "page"

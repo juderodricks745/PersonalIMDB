@@ -6,17 +6,18 @@ import com.davidbronn.personalimdb.utils.helpers.jsonify
 import com.davidbronn.personalimdb.utils.misc.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
  * Created by Jude on 13/January/2020
  */
-class SearchMoviesRepositoryImpl(private val api: SearchMoviesApi) : SearchMoviesRepository {
+class SearchMoviesRepositoryImpl @Inject constructor(private val api: SearchMoviesApi) : SearchMoviesRepository {
 
     override suspend fun fetchMovies(
         searchText: String
     ): Result<List<ResultsItem?>?>? {
         return withContext(Dispatchers.IO) {
-            val response = api.fetchMoviesByTextAsync(searchText).await()
+            val response = api.fetchMoviesByTextAsync(searchText)
             if (response.isSuccessful) {
                 val movieBody = response.body()
                 movieBody?.let {

@@ -3,7 +3,6 @@ package com.davidbronn.personalimdb.repository.moviedetails
 import com.davidbronn.personalimdb.models.network.MovieCredit
 import com.davidbronn.personalimdb.models.network.MovieDetails
 import com.davidbronn.personalimdb.models.network.MovieItem
-import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,13 +13,13 @@ import retrofit2.http.Path
 interface MovieDetailsApi {
 
     @GET(MOVIE_DETAILS)
-    fun fetchMovieDetailsAsync(@Path(KEY_MOVIE_ID) movieId: Int): Deferred<Response<MovieDetails>>
+    suspend fun fetchMovieDetailsAsync(@Path(KEY_MOVIE_ID) movieId: Int): Response<MovieDetails>
 
     @GET(MOVIE_SIMILAR)
-    fun fetchSimilarMoviesAsync(@Path(KEY_MOVIE_ID) movieId: Int): Deferred<Response<MovieItem>>
+    suspend fun fetchSimilarMoviesAsync(@Path(KEY_MOVIE_ID) movieId: Int): Response<MovieItem>
 
     @GET(MOVIE_CREDITS)
-    fun fetchMoviesCreditAsync(@Path(KEY_MOVIE_ID) movieId: Int): Deferred<Response<MovieCredit>>
+    suspend fun fetchMoviesCreditAsync(@Path(KEY_MOVIE_ID) movieId: Int): Response<MovieCredit>
     
     companion object ApiKeys {
         const val KEY_MOVIE_ID = "movie_id" // Key for fetching Movie by ID

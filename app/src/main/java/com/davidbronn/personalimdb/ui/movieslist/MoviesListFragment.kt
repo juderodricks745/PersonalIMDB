@@ -8,33 +8,32 @@ import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.MoviesListFragmentBinding
-import com.davidbronn.personalimdb.di.KoinKeys
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.ui.interfaces.IRecyclerItemClickListener
 import com.davidbronn.personalimdb.ui.moviedetails.MovieDetailsActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.KoinComponent
 
+@AndroidEntryPoint
 class MoviesListFragment : Fragment(),
-    IRecyclerItemClickListener, KoinComponent {
+    IRecyclerItemClickListener {
 
     private lateinit var adapter: MoviesAdapter
+    lateinit var viewModel: MoviesListViewModel
     private lateinit var binding: MoviesListFragmentBinding
-    private val viewModel: MoviesListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.movies_list_fragment, container, false)
-        getKoin().setProperty(KoinKeys.MOVIE_TYPE, getMovieType())
+        viewModel = ViewModelProvider(this).get(MoviesListViewModel::class.java)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.vm = viewModel
         return binding.root
     }
 
@@ -77,15 +76,12 @@ class MoviesListFragment : Fragment(),
         )
     }
 
-    private fun getMovieType() = arguments!!.getInt(MOVIE_TYPE)
-
     companion object {
-        private const val MOVIE_TYPE = "movie_type"
 
         fun newInstance(movieType: Int): Fragment {
             return MoviesListFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(MOVIE_TYPE, movieType)
+                    putInt(MoviesListViewModel.Keys.MOVIE_TYPE, movieType)
                 }
             }
         }

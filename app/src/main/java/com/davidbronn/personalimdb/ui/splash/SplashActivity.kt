@@ -7,15 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivitySplashBinding
-import com.davidbronn.personalimdb.repository.landing.PreferenceHelper
 import com.davidbronn.personalimdb.ui.base.BaseActivity
 import com.davidbronn.personalimdb.ui.landing.LandingActivity
 import kotlinx.coroutines.delay
-import org.koin.android.ext.android.inject
 
 class SplashActivity : BaseActivity() {
 
-    private val themeRepo: PreferenceHelper by inject()
     private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

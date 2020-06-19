@@ -9,22 +9,19 @@ import android.transition.TransitionSet
 import androidx.databinding.DataBindingUtil
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivityLandingBinding
-import com.davidbronn.personalimdb.repository.landing.PreferenceHelper
-import com.davidbronn.personalimdb.repository.landing.PreferenceHelper.Companion.IS_DARK_MODE
-import com.davidbronn.personalimdb.repository.landing.PreferenceHelper.Companion.NOT_DARK_MODE
+import com.davidbronn.personalimdb.repository.landing.PreferenceHelperImpl.Companion.IS_DARK_MODE
+import com.davidbronn.personalimdb.repository.landing.PreferenceHelperImpl.Companion.NOT_DARK_MODE
 import com.davidbronn.personalimdb.ui.base.BaseActivity
 import com.davidbronn.personalimdb.ui.search.SearchMoviesActivity
 import com.davidbronn.personalimdb.ui.splash.SplashActivity
-import org.koin.android.ext.android.inject
 
 class LandingActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLandingBinding
-    private val themeRepo: PreferenceHelper by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         setAppTheme()
+        super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_landing)
 
         window.enterTransition = Explode()

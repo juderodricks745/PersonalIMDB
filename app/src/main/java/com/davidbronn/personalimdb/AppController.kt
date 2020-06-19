@@ -1,12 +1,11 @@
 package com.davidbronn.personalimdb
 
 import android.app.Application
-import com.davidbronn.personalimdb.di.*
 import com.google.gson.Gson
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class AppController : Application() {
 
     override fun onCreate() {
@@ -15,19 +14,6 @@ class AppController : Application() {
         // Debug only Timber
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-        }
-
-        // Koin Initializations
-        startKoin {
-            androidContext(this@AppController)
-            modules(
-                listOf(
-                    base,
-                    movieList,
-                    movieDetails,
-                    searchMovies
-                )
-            )
         }
     }
 

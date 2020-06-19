@@ -1,5 +1,6 @@
 package com.davidbronn.personalimdb.ui.search
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,7 @@ import java.util.*
 /**
  * Created by Jude on 13/January/2020
  */
-class SearchMoviesViewModel(private val repository: SearchMoviesRepository) : ViewModel() {
+class SearchMoviesViewModel @ViewModelInject constructor(private val repository: SearchMoviesRepository) : ViewModel() {
 
     val progress = MutableLiveData<Boolean>()
 

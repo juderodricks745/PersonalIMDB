@@ -9,13 +9,15 @@ import com.davidbronn.personalimdb.utils.helpers.jsonify
 import com.davidbronn.personalimdb.utils.misc.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
  * Created by Jude on 12/January/2020
  */
-class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
-                                 private val dao: LikedMovieDao)
-    : MovieDetailsRepository {
+class MovieDetailsRepositoryImpl @Inject constructor(
+    private val api: MovieDetailsApi,
+    private val dao: LikedMovieDao
+) : MovieDetailsRepository {
 
     override fun deleteMovie(movieId: Int, movieStatus: Boolean) {
         dao.deleteMovie(LikedMovie(movieId, movieStatus))
@@ -31,7 +33,7 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
 
     override suspend fun fetchMoviesCast(movieId: Int): Result<List<CastItem?>>? {
         return withContext(Dispatchers.IO) {
-            val response = api.fetchMoviesCreditAsync(movieId).await()
+            val response = api.fetchMoviesCreditAsync(movieId)
             if (response.isSuccessful) {
                 val movieBody = response.body()
                 movieBody?.let {
@@ -46,7 +48,7 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
 
     override suspend fun fetchSimilarMovies(movieId: Int): Result<List<ResultsItem?>?>? {
         return withContext(Dispatchers.IO) {
-            val response = api.fetchSimilarMoviesAsync(movieId).await()
+            val response = api.fetchSimilarMoviesAsync(movieId)
             if (response.isSuccessful) {
                 val movieBody = response.body()
                 movieBody?.let {
@@ -61,7 +63,7 @@ class MovieDetailsRepositoryImpl(private val api: MovieDetailsApi,
 
     override suspend fun getMovieDetails(movieId: Int): Result<MovieDetails>? {
         return withContext(Dispatchers.IO) {
-            val response = api.fetchMovieDetailsAsync(movieId).await()
+            val response = api.fetchMovieDetailsAsync(movieId)
             if (response.isSuccessful) {
                 val movieBody = response.body()
                 movieBody?.let {

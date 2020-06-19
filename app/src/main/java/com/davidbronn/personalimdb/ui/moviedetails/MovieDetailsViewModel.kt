@@ -1,6 +1,9 @@
 package com.davidbronn.personalimdb.ui.moviedetails
 
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.davidbronn.personalimdb.models.network.CastItem
@@ -8,6 +11,7 @@ import com.davidbronn.personalimdb.models.network.MovieCastItem
 import com.davidbronn.personalimdb.models.network.MovieDetails
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsRepository
+import com.davidbronn.personalimdb.ui.moviedetails.MovieDetailsViewModel.Keys.MOVIE_ID
 import com.davidbronn.personalimdb.utils.misc.Result
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -16,10 +20,12 @@ import timber.log.Timber
 /**
  * Created by Jude on 12/January/2020
  */
-class MovieDetailsViewModel(
-    private val movieID: Int,
-    private val repository: MovieDetailsRepository
+class MovieDetailsViewModel @ViewModelInject constructor(
+    private val repository: MovieDetailsRepository,
+    @Assisted private val handle: SavedStateHandle
 ) : ViewModel() {
+
+    private val movieID = handle.get<Int>(MOVIE_ID)!!
 
     val title = MutableLiveData<String>().apply { value = "" }
     val genres = MutableLiveData<String>().apply { value = "" }
@@ -150,5 +156,9 @@ class MovieDetailsViewModel(
                 Timber.e(response.exception)
             }
         }
+    }
+
+    object Keys {
+        const val MOVIE_ID = "movie_id"
     }
 }

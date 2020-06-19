@@ -37,7 +37,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="6dp"
-                    android:src="@drawable/ic_dark" />
+                    android:src="@drawable/ic_dark"
+                    android:visibility="gone" />
             </RelativeLayout>
         </com.google.android.material.appbar.MaterialToolbar>
 

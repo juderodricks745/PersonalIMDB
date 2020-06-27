@@ -19,7 +19,7 @@ class SearchMoviesAdapter : RecyclerView.Adapter<SearchMoviesAdapter.SearchMovie
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: kotlin.Int
+        viewType: Int
     ): SearchMoviesViewHolder {
         val binding = DataBindingUtil.inflate<LayoutMovieItemBinding>(
             LayoutInflater.from(parent.context),
@@ -28,11 +28,11 @@ class SearchMoviesAdapter : RecyclerView.Adapter<SearchMoviesAdapter.SearchMovie
         return SearchMoviesViewHolder(binding)
     }
 
-    override fun getItemCount(): kotlin.Int {
+    override fun getItemCount(): Int {
         return movieResults.size
     }
 
-    override fun onBindViewHolder(holder: SearchMoviesViewHolder, position: kotlin.Int) {
+    override fun onBindViewHolder(holder: SearchMoviesViewHolder, position: Int) {
         val movieItem = movieResults[position]
         movieItem?.let { holder.bindItem(movieItem) }
         setAnimation(holder.binding.root)

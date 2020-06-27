@@ -9,7 +9,6 @@ import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepository
 import com.davidbronn.personalimdb.utils.misc.Event
 import com.davidbronn.personalimdb.utils.misc.Result
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -29,7 +28,6 @@ class SearchMoviesViewModel @ViewModelInject constructor(private val repository:
     fun fetchMovies(searchText: String) {
         progress.value = true
         viewModelScope.launch {
-            delay(1000)
             when (val result = repository.fetchMovies(searchText)) {
                 is Result.Success -> {
                     progress.value = false

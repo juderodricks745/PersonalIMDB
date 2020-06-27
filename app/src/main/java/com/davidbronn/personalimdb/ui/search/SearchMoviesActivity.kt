@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivitySearchMoviesBinding
 import com.davidbronn.personalimdb.ui.base.BaseActivity
+import com.davidbronn.personalimdb.utils.helpers.EspressoTestingIdlingResource
 import com.davidbronn.personalimdb.utils.helpers.withSnack
 import com.davidbronn.personalimdb.utils.misc.EventObserver
 
@@ -35,6 +36,7 @@ class SearchMoviesActivity : BaseActivity() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.edMovies.text?.let {
                     if (it.length > 3) {
+                        EspressoTestingIdlingResource.increment()
                         viewModel.fetchMovies(it.toString())
                     } else {
                         binding.clRoot.withSnack(resources.getString(R.string.err_search_more_characters))
@@ -57,6 +59,7 @@ class SearchMoviesActivity : BaseActivity() {
                     binding.clRoot.withSnack(event.message)
                 }
                 is SearchMoviesViewModel.SearchMoviesEvent.MoviesList -> {
+                    EspressoTestingIdlingResource.decrement()
                     event.moviesList?.let {
                         moviesAdapter?.addItems(it)
                     }

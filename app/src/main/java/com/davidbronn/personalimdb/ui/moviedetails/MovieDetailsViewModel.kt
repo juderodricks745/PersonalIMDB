@@ -54,9 +54,9 @@ class MovieDetailsViewModel @ViewModelInject constructor(
      */
     fun setLikedMovie() {
         if (repository.checkIfLikedMovie(movieID) != null) {
-            repository.deleteMovie(movieID, false)
+            repository.deleteMovie(movieID)
         } else {
-            repository.insertMovie(movieID, true)
+            repository.insertMovie(movieID)
         }
         isMovieLiked.value = repository.checkIfLikedMovie(movieID) != null
     }

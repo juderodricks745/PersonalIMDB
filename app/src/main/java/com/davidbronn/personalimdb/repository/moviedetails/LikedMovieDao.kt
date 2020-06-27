@@ -17,4 +17,7 @@ interface LikedMovieDao {
 
     @Query("select * from liked_movies where movieId = :movieId")
     fun checkLikedMovie(movieId: Int): LikedMovie
+
+    @Query("select count(*) from liked_movies")
+    fun getMoviesCount(): Int
 }

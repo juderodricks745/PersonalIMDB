@@ -2,8 +2,6 @@ package com.davidbronn.personalimdb.di
 
 import com.davidbronn.personalimdb.repository.landing.PreferenceHelper
 import com.davidbronn.personalimdb.repository.landing.PreferenceHelperImpl
-import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepository
-import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,7 +17,4 @@ abstract class ProvidersModule {
 
     @Binds
     abstract fun providePreferencesHelper(prefs: PreferenceHelperImpl): PreferenceHelper
-
-    @Binds
-    abstract fun provideSearchRepository(prefs: SearchMoviesRepositoryImpl): SearchMoviesRepository
 }

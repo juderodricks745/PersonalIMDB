@@ -19,16 +19,16 @@ class MovieDetailsRepositoryImpl @Inject constructor(
     private val dao: LikedMovieDao
 ) : MovieDetailsRepository {
 
-    override fun deleteMovie(movieId: Int, movieStatus: Boolean) {
-        dao.deleteMovie(LikedMovie(movieId, movieStatus))
+    override fun insertMovie(movieId: Int) {
+        dao.insertMovie(LikedMovie(movieId))
+    }
+
+    override fun deleteMovie(movieId: Int) {
+        dao.deleteMovie(LikedMovie(movieId))
     }
 
     override fun checkIfLikedMovie(movieId: Int): LikedMovie? {
         return dao.checkLikedMovie(movieId)
-    }
-
-    override fun insertMovie(movieId: Int, movieStatus: Boolean) {
-        dao.insertMovie(LikedMovie(movieId, movieStatus))
     }
 
     override suspend fun fetchMoviesCast(movieId: Int): Result<List<CastItem?>>? {

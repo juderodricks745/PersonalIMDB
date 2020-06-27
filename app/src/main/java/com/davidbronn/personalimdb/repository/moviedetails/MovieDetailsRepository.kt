@@ -11,9 +11,9 @@ import com.davidbronn.personalimdb.utils.misc.Result
  */
 interface MovieDetailsRepository {
 
+    fun insertMovie(movieId: Int)
+    fun deleteMovie(movieId: Int)
     fun checkIfLikedMovie(movieId: Int): LikedMovie?
-    fun insertMovie(movieId: Int, movieStatus: Boolean)
-    fun deleteMovie(movieId: Int, movieStatus: Boolean)
     suspend fun getMovieDetails(movieId: Int): Result<MovieDetails>?
     suspend fun fetchMoviesCast(movieId: Int): Result<List<CastItem?>>?
     suspend fun fetchSimilarMovies(movieId: Int): Result<List<ResultsItem?>?>?

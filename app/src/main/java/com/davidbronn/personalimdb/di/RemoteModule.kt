@@ -1,17 +1,10 @@
 package com.davidbronn.personalimdb.di
 
 import com.davidbronn.personalimdb.BuildConfig
-import com.davidbronn.personalimdb.repository.moviedetails.LikedMovieDao
 import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsApi
-import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsRepository
-import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsRepositoryImpl
 import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi
 import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesApi
-import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepository
-import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepositoryImpl
 import com.davidbronn.personalimdb.utils.helpers.RequestInterceptor
-import com.davidbronn.personalimdb.utils.misc.DefaultDispatcherProvider
-import com.davidbronn.personalimdb.utils.misc.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -65,16 +58,4 @@ class RemoteModule {
     @Provides
     @Singleton
     fun provideMoviesSearchService(retrofit: Retrofit): SearchMoviesApi = retrofit.create(SearchMoviesApi::class.java)
-
-    @Provides
-    fun provideMovieDetailsRepository(api: MovieDetailsApi, dao: LikedMovieDao): MovieDetailsRepository =
-        MovieDetailsRepositoryImpl(api, dao)
-
-    @Provides
-    fun provideDispatchers(): DispatcherProvider =
-        DefaultDispatcherProvider()
-
-    @Provides
-    fun provideSearchMoviesRepository(dispatchers: DispatcherProvider, api: SearchMoviesApi): SearchMoviesRepository =
-        SearchMoviesRepositoryImpl(dispatchers, api)
 }

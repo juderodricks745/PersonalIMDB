@@ -13,7 +13,7 @@ import dagger.hilt.android.components.ApplicationComponent
 
 @InstallIn(ApplicationComponent::class)
 @Module
-abstract class ProvidersModule {
+abstract class BindsModule {
 
     @Binds
     abstract fun providePreferencesHelper(prefs: PreferenceHelperImpl): PreferenceHelper

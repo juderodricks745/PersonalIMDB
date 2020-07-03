@@ -1,6 +1,7 @@
 package com.davidbronn.personalimdb.utils.binding
 
 import android.graphics.Bitmap
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
@@ -18,12 +19,12 @@ import timber.log.Timber
 /**
  * Created by Jude on 12/January/2020
  */
-object ImageViewBindingUtils {
+object ViewBindingUtils {
 
     private const val IMAGE_URL = "imageUrl"
-    private const val IMAGE_BACKDROP = "imageBackDrop"
-
     private const val IMAGE_TITLE = "imageTitle"
+    private const val VIEW_VISIBILITY = "visibleGone"
+    private const val IMAGE_BACKDROP = "imageBackDrop"
 
     @JvmStatic
     @BindingAdapter(IMAGE_URL)
@@ -67,5 +68,11 @@ object ImageViewBindingUtils {
                     }
                 }
             })
+    }
+
+    @JvmStatic
+    @BindingAdapter(VIEW_VISIBILITY)
+    fun showHide(view: View, show: Boolean) {
+        view.visibility = if (show) View.VISIBLE else View.GONE
     }
 }

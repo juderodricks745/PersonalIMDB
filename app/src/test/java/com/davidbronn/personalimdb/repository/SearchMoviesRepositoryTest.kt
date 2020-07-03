@@ -1,11 +1,13 @@
 package com.davidbronn.personalimdb.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepository
 import com.davidbronn.personalimdb.utils.CoroutineTestRule
-import com.davidbronn.personalimdb.utils.misc.Result
+import com.davidbronn.personalimdb.utils.misc.Resource
+import com.davidbronn.personalimdb.utils.misc.Status
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,9 +46,8 @@ class SearchMoviesRepositoryTest {
     @Test
     fun `fetch movies with search text & check for error response`() = coroutinesTestRule.testDispatcher.runBlockingTest {
         // Use appropriate methods from proper dependencies to mock requests & responses
-        // coEvery supports suspend functions
-        coEvery { repository.fetchMovies("Avengers") } returns Result.Error(RuntimeException())
-        val response = repository.fetchMovies("Avengers")
+        every { repository.fetchMoviesByLiveData("Avengers") } returns MutableLiveData(Resource(Status.SUCCESS, null, ""))
+        val response = repository.fetchMoviesByLiveData("Avengers")
         Assert.assertNotNull(response)
     }
 }

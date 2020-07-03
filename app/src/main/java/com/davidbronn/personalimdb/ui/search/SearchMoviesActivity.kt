@@ -3,15 +3,18 @@ package com.davidbronn.personalimdb.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.davidbronn.personalimdb.R
 import com.davidbronn.personalimdb.databinding.ActivitySearchMoviesBinding
 import com.davidbronn.personalimdb.ui.base.BaseActivity
 import com.davidbronn.personalimdb.utils.helpers.EspressoTestingIdlingResource
 import com.davidbronn.personalimdb.utils.helpers.withSnack
 import com.davidbronn.personalimdb.utils.misc.EventObserver
+import com.davidbronn.personalimdb.utils.misc.RetryCallback
+import com.davidbronn.personalimdb.utils.misc.Status
 
 class SearchMoviesActivity : BaseActivity() {
 
@@ -26,46 +29,56 @@ class SearchMoviesActivity : BaseActivity() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-        setEvents()
-        setObservers()
+        bindObservers()
         setMoviesAdapter()
     }
 
-    private fun setEvents() {
-        binding.edMovies.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                binding.edMovies.text?.let {
-                    if (it.length > 3) {
+    private fun bindObservers() {
+        binding.results = viewModel.getResource()
+
+        binding.callBack = object : RetryCallback {
+            override fun retry() {
+                // TODO: Some retry for face save
+            }
+        }
+
+        viewModel.getResource().observe(this, Observer { resources ->
+            resources?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        EspressoTestingIdlingResource.decrement()
+                        resource.data?.let { movieResults ->
+                            moviesAdapter?.addItems(movieResults)
+                        }
+                    }
+                    Status.ERROR -> {
+                        EspressoTestingIdlingResource.decrement()
+                    }
+                    Status.LOADING -> {
                         EspressoTestingIdlingResource.increment()
-                        viewModel.fetchMovies(it.toString())
-                    } else {
-                        binding.clRoot.withSnack(resources.getString(R.string.err_search_more_characters))
                     }
                 }
             }
-            false
+        })
+
+        viewModel.event.observe(this, EventObserver { event ->
+            when (event) {
+                is SearchMoviesViewModel.SearchMoviesEvent.SnackBar -> {
+                    binding.clRoot.withSnack(event.message)
+                }
+            }
+        })
+
+        binding.edMovies.addTextChangedListener {
+            if (it.toString().length > 2) {
+                viewModel.setMovieSearchParams(it.toString())
+            }
         }
     }
 
     private fun setMoviesAdapter() {
         moviesAdapter = SearchMoviesAdapter()
         binding.rvMovies.adapter = moviesAdapter
-    }
-
-    private fun setObservers() {
-        viewModel.event.observe(this, EventObserver { event ->
-            when (event) {
-                is SearchMoviesViewModel.SearchMoviesEvent.SnackBar -> {
-                    binding.clRoot.withSnack(event.message)
-                }
-                is SearchMoviesViewModel.SearchMoviesEvent.MoviesList -> {
-                    EspressoTestingIdlingResource.decrement()
-                    event.moviesList?.let {
-                        moviesAdapter?.addItems(it)
-                    }
-                }
-            }
-        })
     }
 
     companion object {

@@ -5,11 +5,30 @@
     tools:context=".ui.search.SearchMoviesActivity">
 
     <data>
+
+        <import type="java.util.List" />
+
         <import type="android.view.View" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.davidbronn.personalimdb.utils.misc.Status" />
+
+        <import type="com.davidbronn.personalimdb.utils.misc.Resource" />
+
+        <import type="com.davidbronn.personalimdb.models.network.ResultsItem" />
 
         <variable
             name="vm"
             type="com.davidbronn.personalimdb.ui.search.SearchMoviesViewModel" />
+
+        <variable
+            name="results"
+            type="LiveData&lt;Resource&lt;List&lt;ResultsItem>>>" />
+
+        <variable
+            name="callBack"
+            type="com.davidbronn.personalimdb.utils.misc.RetryCallback" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +57,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlSymmetry"
+            tools:ignore="RtlSymmetry,UnusedAttribute"
             tools:text="Rick and Morty" />
 
         <com.davidbronn.personalimdb.ui.widget.AutofitRecyclerView
@@ -47,20 +66,25 @@
             android:layout_height="0dp"
             android:layout_margin="10dp"
             android:columnWidth="@dimen/dp_180"
-            android:visibility="@{vm.progress ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edMovies" />
+            app:layout_constraintTop_toBottomOf="@id/edMovies"
+            app:visibleGone="@{results.status == Status.SUCCESS}" />
 
-        <ProgressBar
-            android:id="@+id/progress_circular"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="@{vm.progress ? View.VISIBLE : View.GONE}"
+        <include
+            layout="@layout/loading_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:callBack="@{() -> callBack.retry()}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edMovies" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resource="@{(Resource) results}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

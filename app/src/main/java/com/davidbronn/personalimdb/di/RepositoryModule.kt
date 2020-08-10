@@ -22,11 +22,11 @@ import dagger.hilt.android.components.ApplicationComponent
 class RepositoryModule {
 
     @Provides
-    fun provideMovieDetailsRepository(api: MovieDetailsApi, dao: LikedMovieDao): MovieDetailsRepository =
-        MovieDetailsRepositoryImpl(api, dao)
+    fun provideDispatchers(): DispatcherProvider = DefaultDispatcherProvider()
 
     @Provides
-    fun provideDispatchers(): DispatcherProvider = DefaultDispatcherProvider()
+    fun provideMovieDetailsRepository(dispatchers: DispatcherProvider, api: MovieDetailsApi, dao: LikedMovieDao): MovieDetailsRepository =
+        MovieDetailsRepositoryImpl(dispatchers, api, dao)
 
     @Provides
     fun provideSearchMoviesRepository(dispatchers: DispatcherProvider, api: SearchMoviesApi): SearchMoviesRepository =

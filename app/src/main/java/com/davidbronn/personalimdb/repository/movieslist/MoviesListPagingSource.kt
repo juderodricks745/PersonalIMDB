@@ -1,5 +1,6 @@
 package com.davidbronn.personalimdb.repository.movieslist
 
+import android.util.Log
 import androidx.paging.PagingSource
 import com.davidbronn.personalimdb.models.network.MovieItem
 import com.davidbronn.personalimdb.models.network.ResultsItem
@@ -21,6 +22,7 @@ class MoviesListPagingSource(
         return try {
             val response = fetchMoviesByType(pageNumber)
             val results = response.body()?.results
+            Log.i("Results", "results size : ${results!!.size}")
             LoadResult.Page(
                 data = results!!,
                 prevKey = null,

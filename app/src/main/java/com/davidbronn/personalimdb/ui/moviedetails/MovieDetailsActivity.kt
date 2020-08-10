@@ -17,13 +17,15 @@ import com.davidbronn.personalimdb.ui.base.BaseActivity
 import com.davidbronn.personalimdb.utils.decorations.SpacesItemDecoration
 import com.davidbronn.personalimdb.utils.helpers.fadeEnterTransitionWithExclusion
 import com.davidbronn.personalimdb.utils.helpers.viewCenterScale
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class MovieDetailsActivity : BaseActivity() {
 
-    private var castAdapter: MovieCastItemAdapter? = null
-    private var moviesAdapter: MovieCastItemAdapter? = null
+    private lateinit var castAdapter: MovieCastItemAdapter
+    private lateinit var moviesAdapter: MovieCastItemAdapter
 
-    private var viewModel: MovieDetailsViewModel? = null
+    private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var binding: ActivityMovieDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +33,8 @@ class MovieDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_details)
         viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java)
-        binding.lifecycleOwner = this
         binding.vm = viewModel
+        binding.lifecycleOwner = this
 
         window.enterTransition = fadeEnterTransitionWithExclusion {
             excludeTarget(android.R.id.statusBarBackground, true)
@@ -50,6 +52,8 @@ class MovieDetailsActivity : BaseActivity() {
     }
 
     private fun setEvents() {
+        viewModel.setMovieID(intent.getIntExtra(MOVIE_ID, MovieDetailsViewModel.INVALID_MOVIE_ID))
+
         binding.ivBack.setOnClickListener {
             supportFinishAfterTransition()
         }
@@ -76,21 +80,25 @@ class MovieDetailsActivity : BaseActivity() {
     }
 
     private fun setObservers() {
-        viewModel?.moviesListLiveData?.observe(this, Observer { items ->
-            moviesAdapter?.setItems(items)
+        viewModel.moviesListLiveData.observe(this, Observer { resource ->
+            resource?.let { list ->
+                moviesAdapter.setItems(list)
+            }
         })
 
-        viewModel?.creditListLiveData?.observe(this, Observer { items ->
-            castAdapter?.setItems(items)
+        viewModel.creditListLiveData.observe(this, Observer { resource ->
+            resource?.let { list ->
+                castAdapter.setItems(list)
+            }
         })
 
-        viewModel?.showCastsIfAvailable?.observe(this, Observer {
+        viewModel.showCastsIfAvailable.observe(this, Observer {
             if (it) {
                 binding.cvCast.startCenterScaling()
             }
         })
 
-        viewModel?.showMoviesIfAvailable?.observe(this, Observer {
+        viewModel.showMoviesIfAvailable.observe(this, Observer {
             if (it) {
                 binding.cvSimilarMovies.startCenterScaling()
             }

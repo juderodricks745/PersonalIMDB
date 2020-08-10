@@ -6,7 +6,19 @@
 
     <data>
 
+        <import type="java.util.List" />
+
         <import type="android.view.View" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.davidbronn.personalimdb.utils.misc.Status" />
+
+        <import type="com.davidbronn.personalimdb.utils.misc.Resource" />
+
+        <import type="com.davidbronn.personalimdb.models.network.MovieDetails" />
+
+        <import type="com.davidbronn.personalimdb.models.network.MovieCastItem" />
 
         <variable
             name="vm"
@@ -33,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="fitXY"
-                app:imageBackDrop="@{vm.backDropPath}"
+                app:imageBackDrop="@{vm.movieDetails.backdropPath}"
                 app:layout_constraintHeight_percent="0.35"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -48,7 +60,7 @@
                 android:transitionName="poster"
                 app:cardCornerRadius="@dimen/dp_5"
                 app:cardElevation="@dimen/dp_3"
-                app:imageUrl="@{vm.posterPath}"
+                app:imageUrl="@{vm.movieDetails.posterPath}"
                 app:layout_constraintBottom_toBottomOf="@id/ivBackdropPath"
                 app:layout_constraintHeight_percent="0.2"
                 app:layout_constraintLeft_toLeftOf="@id/ivBackdropPath"
@@ -60,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="24dp"
+                android:padding="@dimen/dp_10"
                 android:src="@drawable/ic_arrow_white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -99,8 +112,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="15dp"
-                        android:text="@{vm.tagLine}"
-                        android:visibility="@{vm.showTagLine ? View.VISIBLE : View.GONE}"
+                        android:text="@{vm.movieDetails.tagline}"
+                        android:visibility="@{vm.movieDetails.showTagLine ? View.VISIBLE: View.GONE}"
                         tools:text="Criminal. Class." />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -110,7 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="5dp"
-                        android:text="@{vm.releaseDate}"
+                        android:text="@{vm.movieDetails.releaseDate}"
                         tools:text="1990-12-12" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -120,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="5dp"
-                        android:text="@{vm.runtime}"
+                        android:text="@{vm.movieDetails.movieRuntime}"
                         tools:text="100 mins" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -132,7 +145,7 @@
                         android:layout_marginTop="5dp"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        android:text="@{vm.genres}"
+                        android:text="@{vm.movieDetails.genresAsString}"
                         tools:text="Action, Adventure" />
 
                     <androidx.cardview.widget.CardView
@@ -164,7 +177,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
-                                android:text="@{vm.synopsis}"
+                                android:text="@{vm.movieDetails.overview}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
@@ -178,9 +191,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dp_10"
-                        android:visibility="gone"
+                        android:visibility="@{vm.showCastsIfAvailable ? View.VISIBLE : View.GONE}"
                         app:cardElevation="@dimen/dp_5"
-                        tools:visibility="gone">
+                        tools:visibility="visible">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -215,9 +228,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dp_10"
-                        android:visibility="gone"
+                        android:visibility="@{vm.showMoviesIfAvailable ? View.VISIBLE : View.GONE}"
                         app:cardElevation="@dimen/dp_5"
-                        tools:visibility="gone">
+                        tools:visibility="visible">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"

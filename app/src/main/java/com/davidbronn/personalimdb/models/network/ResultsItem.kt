@@ -54,8 +54,6 @@ data class ResultsItem(
     val voteCount: Int? = null
 ) : Parcelable {
 
-    fun revisedVoteCount(): String = voteAverage.toString()
-
     companion object {
 
         val DIFF_CALLBACK: DiffUtil.ItemCallback<ResultsItem> = object :

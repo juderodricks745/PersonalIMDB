@@ -1,7 +1,5 @@
 package com.davidbronn.personalimdb.repository.searchmovies
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.models.network.StatusModel
 import com.davidbronn.personalimdb.utils.helpers.jsonify
@@ -9,7 +7,9 @@ import com.davidbronn.personalimdb.utils.misc.DispatcherProvider
 import com.davidbronn.personalimdb.utils.misc.Resource
 import com.davidbronn.personalimdb.utils.misc.Status
 import kotlinx.coroutines.delay
-import timber.log.Timber
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 /**
@@ -20,9 +20,8 @@ class SearchMoviesRepositoryImpl @Inject constructor(
     private val api: SearchMoviesApi
 ) : SearchMoviesRepository {
 
-    override fun fetchMoviesByLiveData(searchText: String): LiveData<Resource<List<ResultsItem>>> {
-        return liveData(dispatchers.io()) {
-            Timber.i("Called initially")
+    override fun fetchMoviesByLiveData(searchText: String): Flow<Resource<List<ResultsItem>>> {
+        return flow {
             delay(500)
             emit(Resource(Status.LOADING, null, ""))
             val response = api.fetchMoviesByTextAsync(searchText)
@@ -35,6 +34,6 @@ class SearchMoviesRepositoryImpl @Inject constructor(
                 val statusModel = response.errorBody()?.string()?.jsonify<StatusModel>()
                 emit(Resource(Status.ERROR, null, statusModel?.statusMessage!!))
             }
-        }
+        }.flowOn(dispatchers.io())
     }
 }

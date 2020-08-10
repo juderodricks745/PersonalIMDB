@@ -1,10 +1,7 @@
 package com.davidbronn.personalimdb.ui.search
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.davidbronn.personalimdb.models.network.ResultsItem
 import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesRepository
 import com.davidbronn.personalimdb.utils.misc.AbsentLiveData
@@ -25,7 +22,7 @@ class SearchMoviesViewModel @ViewModelInject constructor(private val repository:
         if (movieText.isNullOrBlank()) {
             AbsentLiveData.create()
         } else {
-            repository.fetchMoviesByLiveData(movieText)
+            repository.fetchMoviesByLiveData(movieText).asLiveData()
         }
     }
 

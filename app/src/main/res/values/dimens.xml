@@ -4,10 +4,8 @@
     <dimen name="dp_3">3dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_10">10dp</dimen>
-    <dimen name="dp_15">15dp</dimen>
     <dimen name="dp_180">180dp</dimen>
 
     <!-- Z-axis elevations -->
     <dimen name="z_movie_item">4dp</dimen>
-    <dimen name="details_poster_not_elevation">0dp</dimen>
 </resources>

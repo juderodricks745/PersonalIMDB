@@ -6,25 +6,18 @@
     <data>
 
         <import type="android.view.View" />
-
-        <variable
-            name="vm"
-            type="com.davidbronn.personalimdb.ui.movieslist.MoviesListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/llError"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/fragment_background"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_height="wrap_content">
 
         <ProgressBar
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:visibility="@{vm.bottomLoading &amp;&amp; !vm.bottomErrorVisible ? View.VISIBLE : View.GONE}"
+            android:id="@+id/progressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -32,30 +25,28 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvNetworkIssue"
-            style="@style/MovieTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingEnd="10dp"
-            android:text="@{vm.bottomErrorMessage}"
-            android:visibility="@{!vm.bottomLoading &amp;&amp; vm.bottomErrorVisible ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnRetry"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlSymmetry"
-            tools:text="No Internet Connection" />
+            tools:text="Error message" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnRetry"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.onRetry()}"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_10"
             android:text="@string/retry"
-            android:visibility="@{!vm.bottomLoading &amp;&amp; vm.bottomErrorVisible ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintLeft_toLeftOf="@id/tvNetworkIssue"
+            app:layout_constraintRight_toRightOf="@id/tvNetworkIssue"
+            app:layout_constraintTop_toBottomOf="@id/tvNetworkIssue" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

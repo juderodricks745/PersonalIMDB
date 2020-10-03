@@ -54,7 +54,8 @@ data class ResultsItem(
     val voteCount: Int? = null
 ) : Parcelable {
 
-    fun revisedVoteCount(): String = voteAverage.toString()
+    val movieID: String
+        get() = id.toString()
 
     companion object {
 

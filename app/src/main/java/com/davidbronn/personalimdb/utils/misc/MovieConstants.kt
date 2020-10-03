@@ -13,13 +13,4 @@ interface MovieConstants {
         const val POSTER_200 = "https://image.tmdb.org/t/p/w200"
         const val POSTER_500 = "https://image.tmdb.org/t/p/w500"
     }
-
-    object Titles {
-        val MOVIE_TITLES = mutableListOf(
-            "Now Playing",
-            "Popular Movies",
-            "Top Rated Movies",
-            "Upcoming Movies"
-        )
-    }
 }

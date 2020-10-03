@@ -5,22 +5,11 @@
     <color name="light_colorPrimary">#6AAEE3</color>
     <color name="light_colorPrimaryDark">#098EF3</color>
     <color name="light_colorAccent">#098EF3</color>
-    <color name="light_bottomNavBackground">@color/c_white</color>
-    <color name="light_fragment_background">@color/c_white</color>
-    <color name="light_search_stroke">@color/c_white</color>
-
     <!-- Dark Theme -->
     <color name="dark_colorPrimary">#686666</color>
-    <color name="dark_colorPrimaryDark">#121212</color>
-    <color name="dark_colorAccent">#121212</color>
-    <color name="dark_bottomNavBackground">#222222</color>
-    <color name="dark_fragment_background">#686666</color>
-    <color name="dark_search_stroke">@color/c_white</color>
-
-
     <!-- App colors -->
     <color name="c_white">#FFFFFF</color>
-    <color name="color_red">#FF0000</color>
     <color name="black_translucent_60">#99000000</color>
 
+    <color name="window_background">#282828</color>
 </resources>

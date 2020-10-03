@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -10,22 +11,6 @@
         <item name="titleBoldColor">@color/dark_colorPrimary</item>
 
         <item name="android:windowContentTransitions">true</item>
-    </style>
-
-    <style name="DarkTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/dark_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/dark_colorPrimaryDark</item>
-        <item name="colorAccent">@color/dark_colorAccent</item>
-        <item name="fragment_background">@color/dark_fragment_background</item>
-        <item name="titleBoldColor">@color/c_white</item>
-
-        <item name="android:windowContentTransitions">true</item>
-    </style>
-
-    <style name="AppTheme.Home">
-        <item name="android:windowExitTransition">@transition/grid_exit</item>
-        <item name="android:windowReenterTransition">@transition/grid_reenter</item>
     </style>
 
     <style name="MovieTitle">
@@ -50,5 +35,4 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/c_white</item>
     </style>
-
 </resources>

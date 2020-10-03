@@ -1,10 +1,12 @@
 package com.davidbronn.personalimdb.di
 
 import com.davidbronn.personalimdb.BuildConfig
-import com.davidbronn.personalimdb.repository.moviedetails.MovieDetailsApi
-import com.davidbronn.personalimdb.repository.movieslist.MoviesListApi
-import com.davidbronn.personalimdb.repository.searchmovies.SearchMoviesApi
+import com.davidbronn.personalimdb.repository.details.MovieDetailsApi
+import com.davidbronn.personalimdb.repository.movies.MoviesApi
+import com.davidbronn.personalimdb.repository.person.PersonApi
+import com.davidbronn.personalimdb.repository.search.SearchMoviesApi
 import com.davidbronn.personalimdb.utils.helpers.RequestInterceptor
+import com.davidbronn.personalimdb.utils.helpers.apiInstance
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,11 +25,11 @@ import javax.inject.Singleton
 class RemoteModule {
 
     @Provides
-    fun provideBaseUrl() = BuildConfig.BASE_URL
+    fun provideBaseUrl(): String = BuildConfig.BASE_URL
 
     @Provides
     @Singleton
-    fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
+    fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         OkHttpClient.Builder()
@@ -49,13 +51,20 @@ class RemoteModule {
 
     @Provides
     @Singleton
-    fun provideMoviesListService(retrofit: Retrofit): MoviesListApi = retrofit.create(MoviesListApi::class.java)
+    fun provideMoviesListService(retrofit: Retrofit): MoviesApi =
+        apiInstance(retrofit)
 
     @Provides
     @Singleton
-    fun provideMoviesDetailsService(retrofit: Retrofit): MovieDetailsApi = retrofit.create(MovieDetailsApi::class.java)
+    fun provideMoviesDetailsService(retrofit: Retrofit): MovieDetailsApi =
+        apiInstance(retrofit)
 
     @Provides
     @Singleton
-    fun provideMoviesSearchService(retrofit: Retrofit): SearchMoviesApi = retrofit.create(SearchMoviesApi::class.java)
+    fun provideMoviesSearchService(retrofit: Retrofit): SearchMoviesApi =
+        apiInstance(retrofit)
+
+    @Provides
+    @Singleton
+    fun providePersonService(retrofit: Retrofit): PersonApi = apiInstance(retrofit)
 }

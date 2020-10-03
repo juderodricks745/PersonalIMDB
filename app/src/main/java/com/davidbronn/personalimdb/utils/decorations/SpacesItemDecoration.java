@@ -3,6 +3,7 @@ package com.davidbronn.personalimdb.utils.decorations;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -11,14 +12,14 @@ import org.jetbrains.annotations.NotNull;
  * Created by Jude on 22/April/2020
  */
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-    private int space;
+    private final int space;
 
     public SpacesItemDecoration(int spaceInDp) {
         this.space = spaceInDp;
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, @NotNull View view,
+    public void getItemOffsets(@NonNull Rect outRect, @NotNull View view,
                                RecyclerView parent, @NotNull RecyclerView.State state) {
         outRect.left = space;
         outRect.right = space;

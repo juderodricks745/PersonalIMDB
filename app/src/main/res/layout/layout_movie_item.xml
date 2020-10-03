@@ -18,11 +18,12 @@
         app:cardElevation="@dimen/z_movie_item">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/sIvPoster"
+            android:id="@+id/ivPoster"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:transitionName="poster"
             app:imageTitle="@{tvTitle}"
+            android:scaleType="fitXY"
+            android:transitionName="posterPathUrl"
             app:imageUrl="@{item.posterPath}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -2,8 +2,8 @@ package com.davidbronn.personalimdb.di
 
 import android.content.Context
 import androidx.room.Room
-import com.davidbronn.personalimdb.repository.moviedetails.LikedMovieDao
-import com.davidbronn.personalimdb.repository.moviedetails.MoviesDatabase
+import com.davidbronn.personalimdb.repository.details.LikedMovieDao
+import com.davidbronn.personalimdb.repository.details.MoviesDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

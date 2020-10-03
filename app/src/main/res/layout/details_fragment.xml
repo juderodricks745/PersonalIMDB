@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.moviedetails.MovieDetailsActivity">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.davidbronn.personalimdb.ui.details.DetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/motionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBackdropPath"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                app:imageBackDrop="@{vm.movieDetails.backdropPath}"
+                app:layout_constraintHeight_percent="0.35"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sIvPoster"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:transitionName="posterPathUrl"
+                app:cardCornerRadius="@dimen/dp_5"
+                app:cardElevation="@dimen/dp_3"
+                app:layout_constraintBottom_toBottomOf="@id/ivBackdropPath"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintLeft_toLeftOf="@id/ivBackdropPath"
+                app:layout_constraintWidth_percent="0.25" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="24dp"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/ic_arrow_white"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/ftLikeMovie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:onClick="@{() -> vm.setLikedMovie()}"
+                android:src="@{vm.isMovieLiked ? @drawable/ic_filled : @drawable/ic_unfilled}"
+                app:backgroundTint="?attr/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="@+id/ivBackdropPath"
+                app:layout_constraintRight_toRightOf="@id/ivBackdropPath"
+                app:layout_constraintTop_toBottomOf="@+id/ivBackdropPath"
+                app:tint="@color/c_white" />
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?attr/fragment_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivBackdropPath">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTagline"
+                        style="@style/MovieTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="25dp"
+                        android:text="@{vm.movieDetails.tagline}"
+                        app:visibleGone="@{vm.movieDetails.showTagLine}"
+                        tools:text="This world deserves a better class of criminals. Professionals have standard." />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvReleaseDate"
+                        style="@style/MovieSubTextNoBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="5dp"
+                        android:text="@{vm.movieDetails.releaseDate}"
+                        tools:text="1990-12-12" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTagLine"
+                        style="@style/MovieSubTextNoBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="5dp"
+                        android:text="@{vm.movieDetails.movieRuntime}"
+                        tools:text="100 mins" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvGenres"
+                        style="@style/MovieSubTextNoBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="5dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@{vm.movieDetails.genresAsString}"
+                        tools:text="Action, Adventure" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvSynopsis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_10"
+                        app:cardElevation="@dimen/dp_5">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/fragment_background">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblSynposis"
+                                style="@style/MovieDetailBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/lbl_synopsis"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvSynposis"
+                                style="@style/MovieSubTextNoBold"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:text="@{vm.movieDetails.overview}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/lblSynposis"
+                                tools:text="Synopsis" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvCast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_10"
+                        android:visibility="gone"
+                        app:cardElevation="@dimen/dp_5"
+                        app:visibilityAnimation="@{vm.creditListLiveData.size() > 0}"
+                        tools:visibility="visible">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/fragment_background">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblCast"
+                                style="@style/MovieDetailBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/cast"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvCast"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/lblCast" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvSimilarMovies"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_10"
+                        android:visibility="gone"
+                        app:cardElevation="@dimen/dp_5"
+                        app:visibilityAnimation="@{vm.moviesListLiveData.size() > 0}"
+                        tools:visibility="visible">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/fragment_background">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblSimilarMovies"
+                                style="@style/MovieDetailBold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/similar_movies"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvSimilarMovies"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/lblSimilarMovies" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

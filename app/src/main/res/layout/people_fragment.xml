@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.person.PersonFragment">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.davidbronn.personalimdb.ui.people.PeopleViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_white">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="320dp">
+
+            <include
+                android:id="@+id/person_header"
+                layout="@layout/person_header"
+                app:person="@{vm}" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:visibleGone="@{vm.person != null}">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="@{vm.person.birthday}"
+                    app:visibleGone="@{vm.person.birthday!=null}"
+                    tools:text="31st Oct 1992" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="@{vm.person.placeOfBirth}"
+                    app:visibleGone="@{vm.person.placeOfBirth!=null}"
+                    tools:text="Bhayander, Mumbai, India" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="@{vm.person.deathday}"
+                    app:visibleGone="@{vm.person.deathday!=null}"
+                    tools:text="Fuck knows" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/known_as"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="@{vm.person.aka}"
+                    app:visibleGone="@{vm.person.akaAvailable}"
+                    tools:text="Jude, why being so rude" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/biography_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/biography"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/biography"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:text="@{vm.person.biography}"
+                    tools:text="Everything in life is uncertain, except death, Death is certain, so keep living till you die" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

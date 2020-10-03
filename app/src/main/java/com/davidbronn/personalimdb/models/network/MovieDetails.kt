@@ -5,79 +5,79 @@ import com.google.gson.annotations.SerializedName
 data class MovieDetails(
 
     @field:SerializedName("original_language")
-    val originalLanguage: String? = null,
+    var originalLanguage: String? = null,
 
     @field:SerializedName("imdb_id")
-    val imdbId: String? = null,
+    var imdbId: String? = null,
 
     @field:SerializedName("video")
-    val video: Boolean? = null,
+    var video: Boolean? = null,
 
     @field:SerializedName("title")
-    val title: String? = null,
+    var title: String? = null,
 
     @field:SerializedName("backdrop_path")
-    val backdropPath: String? = null,
+    var backdropPath: String? = null,
 
     @field:SerializedName("revenue")
-    val revenue: Int? = null,
+    var revenue: Int? = null,
 
     @field:SerializedName("genres")
-    val genres: List<GenresItem?>? = null,
+    var genres: List<GenresItem?>? = null,
 
     @field:SerializedName("popularity")
-    val popularity: Double? = null,
+    var popularity: Double? = null,
 
     @field:SerializedName("production_countries")
-    val productionCountries: List<ProductionCountriesItem?>? = null,
+    var productionCountries: List<ProductionCountriesItem?>? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    var id: Int? = null,
 
     @field:SerializedName("vote_count")
-    val voteCount: Int? = null,
+    var voteCount: Int? = null,
 
     @field:SerializedName("budget")
-    val budget: Int? = null,
+    var budget: Int? = null,
 
     @field:SerializedName("overview")
-    val overview: String? = null,
+    var overview: String? = null,
 
     @field:SerializedName("original_title")
-    val originalTitle: String? = null,
+    var originalTitle: String? = null,
 
     @field:SerializedName("runtime")
-    val runtime: Int? = null,
+    var runtime: Int? = null,
 
     @field:SerializedName("poster_path")
-    val posterPath: String? = null,
+    var posterPath: String? = null,
 
     @field:SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguagesItem?>? = null,
+    var spokenLanguages: List<SpokenLanguagesItem?>? = null,
 
     @field:SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompaniesItem?>? = null,
+    var productionCompanies: List<ProductionCompaniesItem?>? = null,
 
     @field:SerializedName("release_date")
-    val releaseDate: String? = null,
+    var releaseDate: String? = null,
 
     @field:SerializedName("vote_average")
-    val voteAverage: Double? = null,
+    var voteAverage: Double? = null,
 
     @field:SerializedName("belongs_to_collection")
-    val belongsToCollection: BelongsToCollection? = null,
+    var belongsToCollection: BelongsToCollection? = null,
 
     @field:SerializedName("tagline")
-    val tagline: String? = null,
+    var tagline: String? = null,
 
     @field:SerializedName("adult")
-    val adult: Boolean? = null,
+    var adult: Boolean? = null,
 
     @field:SerializedName("homepage")
-    val homepage: String? = null,
+    var homepage: String? = null,
 
     @field:SerializedName("status")
-    val status: String? = null
+    var status: String? = null
 ) {
     val movieRuntime: String
         get() = runtime.toString() + " mins"
@@ -85,63 +85,63 @@ data class MovieDetails(
     val showTagLine: Boolean
         get() = !tagline.isNullOrBlank()
 
-	val genresAsString: String
-		get() = genres?.map { it?.name }?.joinToString(", ") ?: ""
+    val genresAsString: String
+        get() = genres?.map { it?.name }?.joinToString(", ") ?: ""
 }
 
 data class BelongsToCollection(
 
     @field:SerializedName("backdrop_path")
-    val backdropPath: String? = null,
+    var backdropPath: String? = null,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    var name: String? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    var id: Int? = null,
 
     @field:SerializedName("poster_path")
-    val posterPath: String? = null
+    var posterPath: String? = null
 )
 
 data class GenresItem(
 
     @field:SerializedName("name")
-    val name: String? = null,
+    var name: String? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null
+    var id: Int? = null
 )
 
 data class ProductionCompaniesItem(
 
     @field:SerializedName("logo_path")
-    val logoPath: Any? = null,
+    var logoPath: Any? = null,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    var name: String? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    var id: Int? = null,
 
     @field:SerializedName("origin_country")
-    val originCountry: String? = null
+    var originCountry: String? = null
 )
 
 data class ProductionCountriesItem(
 
     @field:SerializedName("iso_3166_1")
-    val iso31661: String? = null,
+    var iso31661: String? = null,
 
     @field:SerializedName("name")
-    val name: String? = null
+    var name: String? = null
 )
 
 data class SpokenLanguagesItem(
 
     @field:SerializedName("name")
-    val name: String? = null,
+    var name: String? = null,
 
     @field:SerializedName("iso_639_1")
-    val iso6391: String? = null
+    var iso6391: String? = null
 )

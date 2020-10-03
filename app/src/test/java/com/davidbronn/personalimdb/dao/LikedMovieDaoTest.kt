@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.davidbronn.personalimdb.models.database.LikedMovie
-import com.davidbronn.personalimdb.repository.moviedetails.LikedMovieDao
-import com.davidbronn.personalimdb.repository.moviedetails.MoviesDatabase
+import com.davidbronn.personalimdb.repository.details.LikedMovieDao
+import com.davidbronn.personalimdb.repository.details.MoviesDatabase
 import org.junit.*
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config

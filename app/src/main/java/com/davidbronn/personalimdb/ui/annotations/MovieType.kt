@@ -8,7 +8,6 @@ import androidx.annotation.IntDef
 @Retention(AnnotationRetention.SOURCE)
 @IntDef(
     value = [
-        MovieType.MOVIES_LATEST,
         MovieType.MOVIES_NOW_PLAYING,
         MovieType.MOVIES_POPULAR,
         MovieType.MOVIES_TOP_RATED,
@@ -17,10 +16,9 @@ import androidx.annotation.IntDef
 )
 annotation class MovieType {
     companion object {
-        const val MOVIES_LATEST = 0
-        const val MOVIES_NOW_PLAYING = 1
-        const val MOVIES_POPULAR = 2
-        const val MOVIES_TOP_RATED = 3
-        const val MOVIES_UPCOMING = 4
+        const val MOVIES_NOW_PLAYING = 0
+        const val MOVIES_POPULAR = 1
+        const val MOVIES_TOP_RATED = 2
+        const val MOVIES_UPCOMING = 3
     }
 }

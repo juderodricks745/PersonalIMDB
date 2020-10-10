@@ -68,7 +68,7 @@ class DetailsRepositoryTest {
     fun `fetch cast details for a movie`() {
         testRule.testDispatcher.runBlockingTest {
             val moviesCastFlow =
-                flow<Resource<List<MovieCastItem>>> { Resource.success(TestUtil.createSimilarMovies()) }
+                flow<Resource<List<MovieCastItem>>> { Resource.success(TestUtil.createMoviesCast()) }
             every { repository.fetchMoviesCast(TestUtil.MOVIE_ID) } returns moviesCastFlow
             val moviesCastResponse = repository.fetchMoviesCast(TestUtil.MOVIE_ID)
             Assert.assertEquals(moviesCastFlow, moviesCastResponse)

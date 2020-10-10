@@ -118,10 +118,7 @@ internal class IMDBFragmentNavigator(
         if (className[0] == '.') {
             className = mContext.packageName + className
         }
-        val frag = instantiateFragment(
-            mContext, mFragmentManager,
-            className, args
-        )
+        val frag = mFragmentManager.fragmentFactory.instantiate(mContext.classLoader, className)
         frag.arguments = args
         val ft = mFragmentManager.beginTransaction()
         var enterAnim = navOptions?.enterAnim ?: -1
@@ -226,20 +223,6 @@ internal class IMDBFragmentNavigator(
         (fragmentNavigator: Navigator<out FragmentNavigator.Destination?>) :
         NavDestination(fragmentNavigator) {
         private var mClassName: String? = null
-
-        /**
-         * Construct a new fragment destination. This destination is not valid until you set the
-         * Fragment via [.setClassName].
-         *
-         * @param navigatorProvider The [NavController] which this destination
-         * will be associated with.
-         */
-        constructor(navigatorProvider: NavigatorProvider) : this(
-            navigatorProvider.getNavigator<FragmentNavigator>(
-                FragmentNavigator::class.java
-            )
-        ) {
-        }
 
         @CallSuper
         override fun onInflate(

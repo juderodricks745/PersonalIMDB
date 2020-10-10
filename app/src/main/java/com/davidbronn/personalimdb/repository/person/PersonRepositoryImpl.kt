@@ -14,6 +14,7 @@ import javax.inject.Inject
 /**
  * Created by Jude on 11/September/2020
  */
+@Suppress("BlockingMethodInNonBlockingContext")
 class PersonRepositoryImpl @Inject constructor(
     private val dispatchers: DispatcherProvider,
     private val api: PersonApi

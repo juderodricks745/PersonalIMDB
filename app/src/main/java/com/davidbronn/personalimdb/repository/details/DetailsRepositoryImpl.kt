@@ -18,6 +18,7 @@ import javax.inject.Inject
 /**
  * Created by Jude on 12/January/2020
  */
+@Suppress("BlockingMethodInNonBlockingContext")
 class DetailsRepositoryImpl @Inject constructor(
     private val dispatchers: DispatcherProvider,
     private val api: MovieDetailsApi,
@@ -59,7 +60,9 @@ class DetailsRepositoryImpl @Inject constructor(
                 )
             } else {
                 val statusModel = response.errorBody()?.string()?.jsonify<StatusModel>()
-                emit(Resource(Status.ERROR, null, statusModel!!.statusMessage))
+                statusModel?.let {
+                    emit(Resource(Status.ERROR, null, statusModel.statusMessage))
+                }
             }
         }.flowOn(dispatchers.io())
     }
@@ -87,7 +90,9 @@ class DetailsRepositoryImpl @Inject constructor(
                 )
             } else {
                 val statusModel = response.errorBody()?.string()?.jsonify<StatusModel>()
-                emit(Resource(Status.ERROR, null, statusModel!!.statusMessage))
+                statusModel?.let {
+                    emit(Resource(Status.ERROR, null, statusModel.statusMessage))
+                }
             }
         }.flowOn(dispatchers.io())
     }
@@ -101,7 +106,9 @@ class DetailsRepositoryImpl @Inject constructor(
                 emit(Resource(Status.SUCCESS, movieBody, null))
             } else {
                 val statusModel = response.errorBody()?.string()?.jsonify<StatusModel>()
-                emit(Resource(Status.ERROR, null, statusModel!!.statusMessage))
+                statusModel?.let {
+                    emit(Resource(Status.ERROR, null, statusModel.statusMessage))
+                }
             }
         }.flowOn(dispatchers.io())
     }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -72,13 +71,13 @@ class DetailsFragment : Fragment(), IRecyclerItemClickListener {
     }
 
     private fun setObservers() {
-        viewModel.moviesListLiveData.observe(requireActivity(), Observer { resource ->
+        viewModel.moviesListLiveData.observe(requireActivity(), { resource ->
             resource?.let { list ->
                 moviesAdapter.setItems(list)
             }
         })
 
-        viewModel.creditListLiveData.observe(requireActivity(), Observer { resource ->
+        viewModel.creditListLiveData.observe(requireActivity(), { resource ->
             resource?.let { list ->
                 castAdapter.setItems(list)
             }

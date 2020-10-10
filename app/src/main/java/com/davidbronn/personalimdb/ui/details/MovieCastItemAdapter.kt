@@ -1,5 +1,6 @@
 package com.davidbronn.personalimdb.ui.details
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,10 +56,11 @@ class MovieCastItemAdapter : RecyclerView.Adapter<MovieCastItemAdapter.MovieCast
             binding.executePendingBindings()
         }
 
+        @SuppressLint("SyntheticAccessor")
         override fun onClick(v: View?) {
             itemClickListener?.onItemClicked(
                 binding.root,
-                movieCastList[bindingAdapterPosition] as MovieCastItem
+                movieCastList[bindingAdapterPosition]
             )
         }
     }

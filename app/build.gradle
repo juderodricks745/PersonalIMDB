@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
-
 apply plugin: "com.github.konifar.gradle.unused-resources-remover"
 
 android
@@ -30,7 +29,8 @@ android
                     {
                         release
                                 {
-                                    minifyEnabled false
+                                    minifyEnabled true
+                                    shrinkResources true
                                     proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
                                 }
                     }
@@ -62,7 +62,7 @@ dependencies
         {
             implementation fileTree(dir: 'libs', include: ['*.jar'])
             // Kotlin Dependencies
-            implementation 'androidx.core:core-ktx:1.3.1'
+            implementation 'androidx.core:core-ktx:1.3.2'
             implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
             // Google Dependencies
             implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -71,8 +71,8 @@ dependencies
             implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
             implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
             implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-            implementation 'com.google.android.material:material:1.3.0-alpha02'
-            implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+            implementation 'com.google.android.material:material:1.3.0-alpha03'
+            implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
             implementation "androidx.viewpager2:viewpager2:1.0.0"
             // Hilt Dependencies
             implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -80,8 +80,8 @@ dependencies
             implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
             kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
             // Coroutines Dependencies
-            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8"
-            implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8'
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
+            implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
             // Retrofit Dependencies
             implementation "com.squareup.okio:okio:2.7.0"
             implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -93,7 +93,7 @@ dependencies
             // Lottie Dependencies
             implementation 'com.airbnb.android:lottie:3.0.7'
             // Paging Dependencies
-            implementation 'androidx.paging:paging-runtime:3.0.0-alpha06'
+            implementation 'androidx.paging:paging-runtime:3.0.0-alpha07'
             //testImplementation "androidx.paging:paging-common:3.0.0-alpha06"
             // Glide
             implementation 'com.github.bumptech.glide:glide:4.11.0'

@@ -26,19 +26,7 @@ object ViewBindingUtils {
     private const val IMAGE_TITLE = "imageTitle"
     private const val VIEW_VISIBILITY = "visibleGone"
     private const val IMAGE_BACKDROP = "imageBackDrop"
-    private const val IMAGE_LISTENER = "imageListener"
-
     private const val VISIBILITY_ANIMATION = "visibilityAnimation"
-
-    @JvmStatic
-    @BindingAdapter(IMAGE_URL)
-    fun ImageView.setImagePosterUrl(url: String?) {
-        Glide.with(this)
-            .load(MovieConstants.Urls.POSTER_200 + url)
-            .placeholder(R.drawable.img_movie_placeholder)
-            .error(R.drawable.img_movie_placeholder)
-            .into(this)
-    }
 
     @JvmStatic
     @BindingAdapter(IMAGE_BACKDROP)
@@ -61,13 +49,13 @@ object ViewBindingUtils {
                 override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
                     super.onResourceReady(bitmap, transition)
                     Palette.from(bitmap).generate { palette ->
-                        val color = palette!!.getVibrantColor(
+                        val color = palette?.getVibrantColor(
                             ContextCompat.getColor(
                                 this@setImagePosterUrlWithTitle.context,
                                 R.color.black_translucent_60
                             )
                         )
-                        title.setBackgroundColor(color)
+                        color?.let { title.setBackgroundColor(it) }
                     }
                 }
             })

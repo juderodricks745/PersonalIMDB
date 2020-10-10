@@ -13,11 +13,13 @@ import com.davidbronn.personalimdb.R
  * Created by Jude on 18/March/2020
  */
 class FavoriteIconView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     init {
-        init(context)
+        init()
     }
 
     private var arcRectF: RectF? = null
@@ -27,7 +29,7 @@ class FavoriteIconView @JvmOverloads constructor(
     private var drawable: Drawable? = null
     private var canvas: Canvas? = null
 
-    private fun init(context: Context?) {
+    private fun init() {
         arcRectF = RectF()
         arcPaint = Paint().apply {
             color = Color.WHITE
